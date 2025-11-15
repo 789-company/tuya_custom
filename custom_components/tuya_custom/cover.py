@@ -449,6 +449,9 @@ class TuyaCoverEntity(TuyaEntity, CoverEntity):
         self.hass.loop.call_soon_threadsafe(
             self.hass.async_create_task,
             post_command_refresh(
+                self.hass,
+                self.device_manager,
+                self.device.id,
             ),
         )
 
