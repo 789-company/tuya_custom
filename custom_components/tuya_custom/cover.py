@@ -366,14 +366,7 @@ class TuyaCoverEntity(TuyaEntity, CoverEntity):
         # command executes. Adjust the delay inside ``post_command_refresh`` to
         # match your curtain travel time or call signature here.
         # ────────────────────────────────────────────────────────────────────
-        if self.hass is not None:
-            self.hass.async_create_task(
-                post_command_refresh(
-                    self.hass,
-                    self.device_manager,
-                    self.device.id,
-                )
-            )
+        self._schedule_post_command_refresh()
 
     def close_cover(self, **kwargs: Any) -> None:
         """Close cover."""
@@ -415,14 +408,7 @@ class TuyaCoverEntity(TuyaEntity, CoverEntity):
             ),
         )
 
-        if self.hass is not None:
-            self.hass.async_create_task(
-                post_command_refresh(
-                    self.hass,
-                    self.device_manager,
-                    self.device.id,
-                )
-            )
+        self._schedule_post_command_refresh()
 
     def set_cover_position(self, **kwargs: Any) -> None:
         """Move the cover to a specific position."""
@@ -453,14 +439,18 @@ class TuyaCoverEntity(TuyaEntity, CoverEntity):
             assumed_dpcode=self._set_position.dpcode,
         )
 
-        if self.hass is not None:
-            self.hass.async_create_task(
-                post_command_refresh(
-                    self.hass,
-                    self.device_manager,
-                    self.device.id,
-                )
-            )
+        self._schedule_post_command_refresh()
+
+    def _schedule_post_command_refresh(self) -> None:
+        """Thread-safe trigger for the post-command refresh placeholder."""
+        if self.hass is None:
+            return
+
+        self.hass.loop.call_soon_threadsafe(
+            self.hass.async_create_task,
+            post_command_refresh(
+            ),
+        )
 
     def stop_cover(self, **kwargs: Any) -> None:
         """Stop the cover."""
@@ -483,14 +473,7 @@ class TuyaCoverEntity(TuyaEntity, CoverEntity):
             ),
         )
 
-        if self.hass is not None:
-            self.hass.async_create_task(
-                post_command_refresh(
-                    self.hass,
-                    self.device_manager,
-                    self.device.id,
-                )
-            )
+        self._schedule_post_command_refresh()
 
     def set_cover_tilt_position(self, **kwargs: Any) -> None:
         """Move the cover tilt to a specific position."""
