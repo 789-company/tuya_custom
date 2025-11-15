@@ -67,11 +67,43 @@ def optimistic_cover_update(
     need.
     """
 
+    if assumed_dpcode is None or not hasattr(entity, "device"):
+        LOGGER.debug(
+            "optimistic_cover_update skipped for %s (missing device/dpcode)",
+            getattr(entity, "entity_id", "unknown"),
+        )
+        return
+
+    desired_value: bool | int | str | None = target_position
+
+    if desired_value is None:
+        # Fall back to instruction strings if available (Tuya enum-based covers)
+        instruction_value_map = {
+            "open": getattr(entity.entity_description, "open_instruction_value", "open"),
+            "close": getattr(
+                entity.entity_description, "close_instruction_value", "close"
+            ),
+            "stop": getattr(entity.entity_description, "stop_instruction_value", "stop"),
+        }
+        desired_value = instruction_value_map.get(operation)
+
+        # If still None, use boolean semantics for simple switch-based covers
+        if desired_value is None and operation in {"open", "close"}:
+            desired_value = operation == "open"
+
+    device = entity.device
+    if desired_value is not None:
+        device.status[assumed_dpcode] = desired_value
+
+    # Trigger an immediate UI refresh to reflect the optimistic estimate
+    if hasattr(entity, "async_write_ha_state"):
+        entity.async_write_ha_state()
+
     LOGGER.debug(
-        "optimistic_cover_update placeholder for %s: operation=%s, target_position=%s, dpcode=%s",
+        "optimistic_cover_update applied for %s: operation=%s, value=%s, dpcode=%s",
         getattr(entity, "entity_id", "unknown"),
         operation,
-        target_position,
+        desired_value,
         assumed_dpcode,
     )
 
