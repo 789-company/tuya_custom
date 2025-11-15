@@ -1,0 +1,8 @@
+{
+  "name": "Tuya Custom",
+  "content_in_root": false,
+  "domains": ["tuya_custom"],
+  "country": [],
+  "render_readme": true,
+  "iot_class": "cloud_push"
+}
