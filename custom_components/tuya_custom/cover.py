@@ -24,7 +24,6 @@ from .const import TUYA_DISCOVERY_NEW, DeviceCategory, DPCode, DPType
 from .entity import TuyaEntity
 from .models import EnumTypeData, IntegerTypeData, find_dpcode
 from .util import get_dpcode
-from .workarounds import optimistic_cover_update, post_command_refresh
 
 
 @dataclass(frozen=True)
@@ -345,28 +344,8 @@ class TuyaCoverEntity(TuyaEntity, CoverEntity):
             )
 
         self._send_command(commands)
-
-        # ────────────────────────────────────────────────────────────────────
-        # WORKAROUND ENTRY POINT: optimistic state update for immediate UI
-        # feedback. Update the DP you want to mirror (typically
-        # ``self._set_position.dpcode`` or the cover control DP) inside
-        # ``optimistic_cover_update`` once you implement it.
-        # ────────────────────────────────────────────────────────────────────
-        optimistic_cover_update(
-            self,
-            operation="open",
-            target_position=100,
-            assumed_dpcode=(
-                self._set_position.dpcode if self._set_position else self.entity_description.key
-            ),
-        )
-
-        # ────────────────────────────────────────────────────────────────────
-        # WORKAROUND ENTRY POINT: trigger a one-shot refresh shortly after the
-        # command executes. Adjust the delay inside ``post_command_refresh`` to
-        # match your curtain travel time or call signature here.
-        # ────────────────────────────────────────────────────────────────────
-        self._schedule_post_command_refresh()
+        # Trigger state update to refresh UI immediately
+        self.schedule_update_ha_state(True)
 
     def close_cover(self, **kwargs: Any) -> None:
         """Close cover."""
@@ -396,19 +375,8 @@ class TuyaCoverEntity(TuyaEntity, CoverEntity):
             )
 
         self._send_command(commands)
-
-        # WORKAROUND ENTRY POINT: optimistic close behaviour mirrors open case
-        # above. Update the DP that should reflect the closing state immediately.
-        optimistic_cover_update(
-            self,
-            operation="close",
-            target_position=0,
-            assumed_dpcode=(
-                self._set_position.dpcode if self._set_position else self.entity_description.key
-            ),
-        )
-
-        self._schedule_post_command_refresh()
+        # Trigger state update to refresh UI immediately
+        self.schedule_update_ha_state(True)
 
     def set_cover_position(self, **kwargs: Any) -> None:
         """Move the cover to a specific position."""
@@ -431,29 +399,8 @@ class TuyaCoverEntity(TuyaEntity, CoverEntity):
                 }
             ]
         )
-
-        optimistic_cover_update(
-            self,
-            operation="set_position",
-            target_position=kwargs[ATTR_POSITION],
-            assumed_dpcode=self._set_position.dpcode,
-        )
-
-        self._schedule_post_command_refresh()
-
-    def _schedule_post_command_refresh(self) -> None:
-        """Thread-safe trigger for the post-command refresh placeholder."""
-        if self.hass is None:
-            return
-
-        self.hass.loop.call_soon_threadsafe(
-            self.hass.async_create_task,
-            post_command_refresh(
-                self.hass,
-                self.device_manager,
-                self.device.id,
-            ),
-        )
+        # Trigger state update to refresh UI immediately
+        self.schedule_update_ha_state(True)
 
     def stop_cover(self, **kwargs: Any) -> None:
         """Stop the cover."""
@@ -465,18 +412,6 @@ class TuyaCoverEntity(TuyaEntity, CoverEntity):
                 }
             ]
         )
-
-        # WORKAROUND ENTRY POINT: estimate DP state when a stop signal is sent.
-        optimistic_cover_update(
-            self,
-            operation="stop",
-            target_position=None,
-            assumed_dpcode=(
-                self._set_position.dpcode if self._set_position else self.entity_description.key
-            ),
-        )
-
-        self._schedule_post_command_refresh()
 
     def set_cover_tilt_position(self, **kwargs: Any) -> None:
         """Move the cover tilt to a specific position."""
