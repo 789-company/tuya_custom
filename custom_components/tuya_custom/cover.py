@@ -419,12 +419,15 @@ class TuyaCoverEntity(TuyaEntity, CoverEntity):
         
         if self._enable_post_command_refresh:
             from .workarounds import post_command_refresh
-            self.hass.async_create_task(
-                post_command_refresh(
-                    self.hass,
-                    self.device_manager,
-                    self.device.id,
-                    delay=self._post_command_delay,
+            # Use call_soon_threadsafe to schedule the task from sync context
+            self.hass.loop.call_soon_threadsafe(
+                lambda: self.hass.async_create_task(
+                    post_command_refresh(
+                        self.hass,
+                        self.device_manager,
+                        self.device.id,
+                        delay=self._post_command_delay,
+                    )
                 )
             )
         
@@ -473,12 +476,15 @@ class TuyaCoverEntity(TuyaEntity, CoverEntity):
         
         if self._enable_post_command_refresh:
             from .workarounds import post_command_refresh
-            self.hass.async_create_task(
-                post_command_refresh(
-                    self.hass,
-                    self.device_manager,
-                    self.device.id,
-                    delay=self._post_command_delay,
+            # Use call_soon_threadsafe to schedule the task from sync context
+            self.hass.loop.call_soon_threadsafe(
+                lambda: self.hass.async_create_task(
+                    post_command_refresh(
+                        self.hass,
+                        self.device_manager,
+                        self.device.id,
+                        delay=self._post_command_delay,
+                    )
                 )
             )
         
@@ -537,12 +543,15 @@ class TuyaCoverEntity(TuyaEntity, CoverEntity):
         
         if self._enable_post_command_refresh:
             from .workarounds import post_command_refresh
-            self.hass.async_create_task(
-                post_command_refresh(
-                    self.hass,
-                    self.device_manager,
-                    self.device.id,
-                    delay=self._post_command_delay,
+            # Use call_soon_threadsafe to schedule the task from sync context
+            self.hass.loop.call_soon_threadsafe(
+                lambda: self.hass.async_create_task(
+                    post_command_refresh(
+                        self.hass,
+                        self.device_manager,
+                        self.device.id,
+                        delay=self._post_command_delay,
+                    )
                 )
             )
         

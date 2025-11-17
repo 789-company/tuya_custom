@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2025-01-17
+
+### Fixed
+- Fixed thread safety issue in cover platform
+- Changed `hass.async_create_task()` to use `hass.loop.call_soon_threadsafe()` in synchronous methods
+- Resolved error: "Detected that custom integration calls hass.async_create_task from a thread other than the event loop"
+- Affected methods: `open_cover()`, `close_cover()`, `stop_cover()`
+
 ## [1.0.0] - 2025-01-17
 
 ### Added
