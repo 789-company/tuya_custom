@@ -247,6 +247,8 @@ async def async_setup_entry(
 class TuyaCoverEntity(TuyaEntity, CoverEntity):
     """Tuya Cover Device."""
 
+    # TUYA_CUSTOM: Enable polling to work around Tuya Cloud not sending MQTT updates
+    _attr_should_poll = True
     _current_state: DPCode | None = None
     entity_description: TuyaCoverEntityDescription
 
@@ -384,4 +386,15 @@ class TuyaCoverEntity(TuyaEntity, CoverEntity):
         """Move the cover tilt to a specific position."""
         await self._async_send_dpcode_update(
             self._tilt_position, kwargs[ATTR_TILT_POSITION]
+        )
+
+    async def async_update(self) -> None:
+        """Update the entity.
+        
+        TUYA_CUSTOM: Poll Tuya Cloud for device status updates.
+        This is needed because Tuya Cloud does not send MQTT push updates for curtain motors.
+        Without this, the state only updates when the integration is manually reloaded.
+        """
+        await self.hass.async_add_executor_job(
+            self.device_manager.update_device_list_in_smart_home
         )

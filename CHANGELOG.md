@@ -2,6 +2,24 @@
 
 All notable changes to the Tuya Custom integration will be documented in this file.
 
+## [1.0.4] - 2025-11-18
+
+### Added
+- **Automatic Polling**: Cover entities now poll Tuya Cloud every 30 seconds (default HA polling interval)
+  - Fixes the issue where curtain state only updates after manual integration reload
+  - Tuya Cloud does not send MQTT push updates for curtain motors
+  - Polling ensures state is always up-to-date without manual intervention
+
+### Changed
+- Set `_attr_should_poll = True` for `TuyaCoverEntity` class ([`cover.py:250`](custom_components/tuya_custom/cover.py:250))
+- Added `async_update()` method to fetch latest device status from Tuya Cloud ([`cover.py:389-399`](custom_components/tuya_custom/cover.py:389))
+
+### Technical Details
+- Polling calls `device_manager.update_device_list_in_smart_home()` to refresh all device states
+- Home Assistant default polling interval is 30 seconds (configurable via `scan_interval`)
+- This is a workaround for Tuya Cloud limitation (GitHub issue #156543)
+- Only cover entities poll; other entity types remain push-based via MQTT
+
 ## [1.0.3] - 2025-11-18
 
 ### Fixed

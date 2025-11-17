@@ -18,6 +18,7 @@ class TuyaEntity(Entity):
     """Tuya base device."""
 
     _attr_has_entity_name = True
+    # TUYA_CUSTOM: Default to no polling, but cover entities will override this
     _attr_should_poll = False
 
     def __init__(self, device: CustomerDevice, device_manager: Manager) -> None:
