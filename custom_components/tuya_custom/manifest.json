@@ -1,7 +1,7 @@
 {
   "domain": "tuya_custom",
   "name": "Tuya Custom",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "codeowners": ["@Tuya", "@zlinoliver"],
   "config_flow": true,
   "dependencies": ["ffmpeg"],
