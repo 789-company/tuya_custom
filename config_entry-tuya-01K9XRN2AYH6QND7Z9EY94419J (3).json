@@ -1,0 +1,3708 @@
+{
+  "home_assistant": {
+    "installation_type": "Home Assistant OS",
+    "version": "2025.11.2",
+    "dev": false,
+    "hassio": true,
+    "virtualenv": false,
+    "python_version": "3.13.9",
+    "docker": true,
+    "arch": "x86_64",
+    "timezone": "Asia/Bangkok",
+    "os_name": "Linux",
+    "os_version": "6.12.51-haos",
+    "container_arch": "amd64",
+    "supervisor": "2025.11.2",
+    "host_os": "Home Assistant OS 16.3",
+    "docker_version": "28.3.3",
+    "chassis": "vm",
+    "run_as_root": true
+  },
+  "custom_components": {
+    "tuya_custom": {
+      "documentation": "https://www.home-assistant.io/integrations/tuya",
+      "version": "1.0.2",
+      "requirements": [
+        "tuya-device-sharing-sdk==0.2.5"
+      ]
+    },
+    "toshiba_ac": {
+      "documentation": "https://github.com/h4de5/home-assistant-toshiba_ac",
+      "version": "2025.3.1",
+      "requirements": [
+        "toshiba-ac@git+https://github.com/KaSroka/Toshiba-AC-control@v0.3.11",
+        "janus==1.0.0"
+      ]
+    },
+    "weatherapi": {
+      "documentation": "https://github.com/iprak/weatherapi",
+      "version": "1.1.6",
+      "requirements": []
+    },
+    "hacs": {
+      "documentation": "https://hacs.xyz/docs/use/",
+      "version": "2.0.5",
+      "requirements": [
+        "aiogithubapi>=22.10.1"
+      ]
+    },
+    "sonoff": {
+      "documentation": "https://github.com/AlexxIT/SonoffLAN",
+      "version": "3.9.3",
+      "requirements": [
+        "pycryptodome>=3.6.6"
+      ]
+    }
+  },
+  "integration_manifest": {
+    "domain": "tuya",
+    "name": "Tuya",
+    "codeowners": [
+      "Tuya",
+      "zlinoliver"
+    ],
+    "config_flow": true,
+    "dependencies": [
+      "ffmpeg"
+    ],
+    "dhcp": [
+      {
+        "macaddress": "105A17*"
+      },
+      {
+        "macaddress": "10D561*"
+      },
+      {
+        "macaddress": "1869D8*"
+      },
+      {
+        "macaddress": "381F8D*"
+      },
+      {
+        "macaddress": "508A06*"
+      },
+      {
+        "macaddress": "68572D*"
+      },
+      {
+        "macaddress": "708976*"
+      },
+      {
+        "macaddress": "7CF666*"
+      },
+      {
+        "macaddress": "84E342*"
+      },
+      {
+        "macaddress": "D4A651*"
+      },
+      {
+        "macaddress": "D81F12*"
+      }
+    ],
+    "documentation": "https://www.home-assistant.io/integrations/tuya",
+    "integration_type": "hub",
+    "iot_class": "cloud_push",
+    "loggers": [
+      "tuya_sharing"
+    ],
+    "requirements": [
+      "tuya-device-sharing-sdk==0.2.5"
+    ],
+    "is_built_in": true,
+    "overwrites_built_in": false
+  },
+  "setup_times": {
+    "null": {
+      "setup": 1.2052012607455254e-05
+    },
+    "01K9XRN2AYH6QND7Z9EY94419J": {
+      "wait_import_platforms": -0.01707256498048082,
+      "wait_base_component": -0.00019627000438049436,
+      "config_entry_setup": 2.3150742000434548
+    }
+  },
+  "data": {
+    "endpoint": "https://apigw-sg.iotbing.com",
+    "terminal_id": "1763009267861LBBnOl",
+    "mqtt_connected": true,
+    "disabled_by": null,
+    "disabled_polling": false,
+    "devices": [
+      {
+        "id": "a3f493c60cb27b425cw1nq",
+        "name": "Curtain Motor 6",
+        "category": "cl",
+        "product_id": "wraaecjqfiirj8go",
+        "product_name": "Curtain Motor",
+        "online": true,
+        "sub": false,
+        "time_zone": "+07:00",
+        "active_time": "2025-11-05T10:37:31+00:00",
+        "create_time": "2025-11-05T10:37:31+00:00",
+        "update_time": "2025-11-05T10:37:31+00:00",
+        "function": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          }
+        },
+        "status_range": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "percent_state": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          },
+          "fault": {
+            "type": "Bitmap",
+            "value": {
+              "label": [
+                "motor_fault"
+              ]
+            }
+          }
+        },
+        "status": {
+          "control": "open",
+          "percent_control": 100,
+          "percent_state": 0,
+          "control_back_mode": "forward",
+          "fault": 0
+        },
+        "home_assistant": {
+          "name": "Curtain Motor 6",
+          "name_by_user": null,
+          "disabled": false,
+          "disabled_by": null,
+          "entities": [
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": null,
+              "device_class": null,
+              "original_device_class": "curtain",
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "cover.curtain_motor_6_curtain",
+                "state": "open",
+                "attributes": {
+                  "current_position": 100,
+                  "device_class": "curtain",
+                  "friendly_name": "Curtain Motor 6 Curtain",
+                  "supported_features": 15
+                },
+                "last_changed": "2025-11-17T17:36:14.114819+00:00",
+                "last_reported": "2025-11-17T17:36:14.114819+00:00",
+                "last_updated": "2025-11-17T17:36:14.114819+00:00"
+              }
+            },
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": "config",
+              "device_class": null,
+              "original_device_class": null,
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "select.curtain_motor_6_motor_mode",
+                "state": "forward",
+                "attributes": {
+                  "options": [
+                    "forward",
+                    "back"
+                  ],
+                  "friendly_name": "Curtain Motor 6 Motor mode"
+                },
+                "last_changed": "2025-11-17T17:36:14.120167+00:00",
+                "last_reported": "2025-11-17T17:36:14.120167+00:00",
+                "last_updated": "2025-11-17T17:36:14.120167+00:00"
+              }
+            }
+          ]
+        },
+        "set_up": true,
+        "support_local": true
+      },
+      {
+        "id": "a3d1086a98e3d1c2ca4s4j",
+        "name": "Curtain Motor 4",
+        "category": "cl",
+        "product_id": "wraaecjqfiirj8go",
+        "product_name": "Curtain Motor",
+        "online": true,
+        "sub": false,
+        "time_zone": "+07:00",
+        "active_time": "2025-11-05T10:25:43+00:00",
+        "create_time": "2025-11-05T10:25:43+00:00",
+        "update_time": "2025-11-05T10:25:43+00:00",
+        "function": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          }
+        },
+        "status_range": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "percent_state": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          },
+          "fault": {
+            "type": "Bitmap",
+            "value": {
+              "label": [
+                "motor_fault"
+              ]
+            }
+          }
+        },
+        "status": {
+          "control": "open",
+          "percent_control": 0,
+          "percent_state": 0,
+          "control_back_mode": "forward",
+          "fault": 0
+        },
+        "home_assistant": {
+          "name": "Curtain Motor 4",
+          "name_by_user": null,
+          "disabled": false,
+          "disabled_by": null,
+          "entities": [
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": null,
+              "device_class": null,
+              "original_device_class": "curtain",
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "cover.curtain_motor_4_curtain",
+                "state": "open",
+                "attributes": {
+                  "current_position": 100,
+                  "device_class": "curtain",
+                  "friendly_name": "Curtain Motor 4 Curtain",
+                  "supported_features": 15
+                },
+                "last_changed": "2025-11-17T17:36:14.114996+00:00",
+                "last_reported": "2025-11-17T17:36:14.114996+00:00",
+                "last_updated": "2025-11-17T17:36:14.114996+00:00"
+              }
+            },
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": "config",
+              "device_class": null,
+              "original_device_class": null,
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "select.curtain_motor_4_motor_mode",
+                "state": "forward",
+                "attributes": {
+                  "options": [
+                    "forward",
+                    "back"
+                  ],
+                  "friendly_name": "Curtain Motor 4 Motor mode"
+                },
+                "last_changed": "2025-11-17T17:36:14.120274+00:00",
+                "last_reported": "2025-11-17T17:36:14.120274+00:00",
+                "last_updated": "2025-11-17T17:36:14.120274+00:00"
+              }
+            }
+          ]
+        },
+        "set_up": true,
+        "support_local": true
+      },
+      {
+        "id": "a3c33eea2be33d9325fx9a",
+        "name": "Curtain Motor",
+        "category": "cl",
+        "product_id": "wraaecjqfiirj8go",
+        "product_name": "Curtain Motor",
+        "online": true,
+        "sub": false,
+        "time_zone": "+07:00",
+        "active_time": "2025-11-05T09:55:52+00:00",
+        "create_time": "2025-11-05T09:55:52+00:00",
+        "update_time": "2025-11-05T09:55:52+00:00",
+        "function": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          }
+        },
+        "status_range": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "percent_state": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          },
+          "fault": {
+            "type": "Bitmap",
+            "value": {
+              "label": [
+                "motor_fault"
+              ]
+            }
+          }
+        },
+        "status": {
+          "control": "open",
+          "percent_control": 100,
+          "percent_state": 0,
+          "control_back_mode": "forward",
+          "fault": 0
+        },
+        "home_assistant": {
+          "name": "Curtain Motor",
+          "name_by_user": null,
+          "disabled": false,
+          "disabled_by": null,
+          "entities": [
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": null,
+              "device_class": null,
+              "original_device_class": "curtain",
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "cover.curtain_motor_curtain",
+                "state": "open",
+                "attributes": {
+                  "current_position": 100,
+                  "device_class": "curtain",
+                  "friendly_name": "Curtain Motor Curtain",
+                  "supported_features": 15
+                },
+                "last_changed": "2025-11-17T17:36:14.115155+00:00",
+                "last_reported": "2025-11-17T17:36:14.115155+00:00",
+                "last_updated": "2025-11-17T17:36:14.115155+00:00"
+              }
+            },
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": "config",
+              "device_class": null,
+              "original_device_class": null,
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "select.curtain_motor_motor_mode",
+                "state": "forward",
+                "attributes": {
+                  "options": [
+                    "forward",
+                    "back"
+                  ],
+                  "friendly_name": "Curtain Motor Motor mode"
+                },
+                "last_changed": "2025-11-17T17:36:14.120363+00:00",
+                "last_reported": "2025-11-17T17:36:14.120363+00:00",
+                "last_updated": "2025-11-17T17:36:14.120363+00:00"
+              }
+            }
+          ]
+        },
+        "set_up": true,
+        "support_local": true
+      },
+      {
+        "id": "a364e5533c79ec30d1jzal",
+        "name": "Curtain Motor 2",
+        "category": "cl",
+        "product_id": "wraaecjqfiirj8go",
+        "product_name": "Curtain Motor",
+        "online": true,
+        "sub": false,
+        "time_zone": "+07:00",
+        "active_time": "2025-11-05T10:01:30+00:00",
+        "create_time": "2025-11-05T10:01:30+00:00",
+        "update_time": "2025-11-05T10:01:30+00:00",
+        "function": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          }
+        },
+        "status_range": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "percent_state": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          },
+          "fault": {
+            "type": "Bitmap",
+            "value": {
+              "label": [
+                "motor_fault"
+              ]
+            }
+          }
+        },
+        "status": {
+          "control": "open",
+          "percent_control": 100,
+          "percent_state": 0,
+          "control_back_mode": "forward",
+          "fault": 0
+        },
+        "home_assistant": {
+          "name": "Curtain Motor 2",
+          "name_by_user": null,
+          "disabled": false,
+          "disabled_by": null,
+          "entities": [
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": null,
+              "device_class": null,
+              "original_device_class": "curtain",
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "cover.curtain_motor_2_curtain",
+                "state": "open",
+                "attributes": {
+                  "current_position": 100,
+                  "device_class": "curtain",
+                  "friendly_name": "Curtain Motor 2 Curtain",
+                  "supported_features": 15
+                },
+                "last_changed": "2025-11-17T17:36:14.115305+00:00",
+                "last_reported": "2025-11-17T17:36:14.115305+00:00",
+                "last_updated": "2025-11-17T17:36:14.115305+00:00"
+              }
+            },
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": "config",
+              "device_class": null,
+              "original_device_class": null,
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "select.curtain_motor_2_motor_mode",
+                "state": "forward",
+                "attributes": {
+                  "options": [
+                    "forward",
+                    "back"
+                  ],
+                  "friendly_name": "Curtain Motor 2 Motor mode"
+                },
+                "last_changed": "2025-11-17T17:36:14.120442+00:00",
+                "last_reported": "2025-11-17T17:36:14.120442+00:00",
+                "last_updated": "2025-11-17T17:36:14.120442+00:00"
+              }
+            }
+          ]
+        },
+        "set_up": true,
+        "support_local": true
+      },
+      {
+        "id": "a35d314da36ff029f2bokv",
+        "name": "Curtain Motor 3",
+        "category": "cl",
+        "product_id": "wraaecjqfiirj8go",
+        "product_name": "Curtain Motor",
+        "online": true,
+        "sub": false,
+        "time_zone": "+07:00",
+        "active_time": "2025-11-05T10:19:32+00:00",
+        "create_time": "2025-11-05T10:19:32+00:00",
+        "update_time": "2025-11-05T10:19:32+00:00",
+        "function": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          }
+        },
+        "status_range": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "percent_state": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          },
+          "fault": {
+            "type": "Bitmap",
+            "value": {
+              "label": [
+                "motor_fault"
+              ]
+            }
+          }
+        },
+        "status": {
+          "control": "open",
+          "percent_control": 0,
+          "percent_state": 0,
+          "control_back_mode": "forward",
+          "fault": 0
+        },
+        "home_assistant": {
+          "name": "Curtain Motor 3",
+          "name_by_user": null,
+          "disabled": false,
+          "disabled_by": null,
+          "entities": [
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": null,
+              "device_class": null,
+              "original_device_class": "curtain",
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "cover.curtain_motor_3_curtain",
+                "state": "open",
+                "attributes": {
+                  "current_position": 100,
+                  "device_class": "curtain",
+                  "friendly_name": "Curtain Motor 3 Curtain",
+                  "supported_features": 15
+                },
+                "last_changed": "2025-11-17T17:36:14.115453+00:00",
+                "last_reported": "2025-11-17T17:36:14.115453+00:00",
+                "last_updated": "2025-11-17T17:36:14.115453+00:00"
+              }
+            },
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": "config",
+              "device_class": null,
+              "original_device_class": null,
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "select.curtain_motor_3_motor_mode",
+                "state": "forward",
+                "attributes": {
+                  "options": [
+                    "forward",
+                    "back"
+                  ],
+                  "friendly_name": "Curtain Motor 3 Motor mode"
+                },
+                "last_changed": "2025-11-17T17:36:14.120518+00:00",
+                "last_reported": "2025-11-17T17:36:14.120518+00:00",
+                "last_updated": "2025-11-17T17:36:14.120518+00:00"
+              }
+            }
+          ]
+        },
+        "set_up": true,
+        "support_local": true
+      },
+      {
+        "id": "a300fcc6db8a399b28vqic",
+        "name": "Curtain Motor 5",
+        "category": "cl",
+        "product_id": "wraaecjqfiirj8go",
+        "product_name": "Curtain Motor",
+        "online": true,
+        "sub": false,
+        "time_zone": "+07:00",
+        "active_time": "2025-11-05T10:37:28+00:00",
+        "create_time": "2025-11-05T10:37:28+00:00",
+        "update_time": "2025-11-05T10:37:28+00:00",
+        "function": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          }
+        },
+        "status_range": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "percent_state": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          },
+          "fault": {
+            "type": "Bitmap",
+            "value": {
+              "label": [
+                "motor_fault"
+              ]
+            }
+          }
+        },
+        "status": {
+          "control": "open",
+          "percent_control": 0,
+          "percent_state": 0,
+          "control_back_mode": "forward",
+          "fault": 0
+        },
+        "home_assistant": {
+          "name": "Curtain Motor 5",
+          "name_by_user": null,
+          "disabled": false,
+          "disabled_by": null,
+          "entities": [
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": null,
+              "device_class": null,
+              "original_device_class": "curtain",
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "cover.curtain_motor_5_curtain",
+                "state": "open",
+                "attributes": {
+                  "current_position": 100,
+                  "device_class": "curtain",
+                  "friendly_name": "Curtain Motor 5 Curtain",
+                  "supported_features": 15
+                },
+                "last_changed": "2025-11-17T17:36:14.115624+00:00",
+                "last_reported": "2025-11-17T17:36:14.115624+00:00",
+                "last_updated": "2025-11-17T17:36:14.115624+00:00"
+              }
+            },
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": "config",
+              "device_class": null,
+              "original_device_class": null,
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "select.curtain_motor_5_motor_mode",
+                "state": "forward",
+                "attributes": {
+                  "options": [
+                    "forward",
+                    "back"
+                  ],
+                  "friendly_name": "Curtain Motor 5 Motor mode"
+                },
+                "last_changed": "2025-11-17T17:36:14.120600+00:00",
+                "last_reported": "2025-11-17T17:36:14.120600+00:00",
+                "last_updated": "2025-11-17T17:36:14.120600+00:00"
+              }
+            }
+          ]
+        },
+        "set_up": true,
+        "support_local": true
+      },
+      {
+        "id": "a3f532bea0252a313ahqwu",
+        "name": "Curtain Motor 7",
+        "category": "cl",
+        "product_id": "wraaecjqfiirj8go",
+        "product_name": "Curtain Motor",
+        "online": true,
+        "sub": false,
+        "time_zone": "+07:00",
+        "active_time": "2025-11-05T11:12:07+00:00",
+        "create_time": "2025-11-05T11:12:07+00:00",
+        "update_time": "2025-11-05T11:12:07+00:00",
+        "function": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          }
+        },
+        "status_range": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "percent_state": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          },
+          "fault": {
+            "type": "Bitmap",
+            "value": {
+              "label": [
+                "motor_fault"
+              ]
+            }
+          }
+        },
+        "status": {
+          "control": "open",
+          "percent_control": 0,
+          "percent_state": 0,
+          "control_back_mode": "forward",
+          "fault": 0
+        },
+        "home_assistant": {
+          "name": "Curtain Motor 7",
+          "name_by_user": null,
+          "disabled": false,
+          "disabled_by": null,
+          "entities": [
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": null,
+              "device_class": null,
+              "original_device_class": "curtain",
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "cover.curtain_motor_7_curtain",
+                "state": "open",
+                "attributes": {
+                  "current_position": 100,
+                  "device_class": "curtain",
+                  "friendly_name": "Curtain Motor 7 Curtain",
+                  "supported_features": 15
+                },
+                "last_changed": "2025-11-17T17:36:14.115770+00:00",
+                "last_reported": "2025-11-17T17:36:14.115770+00:00",
+                "last_updated": "2025-11-17T17:36:14.115770+00:00"
+              }
+            },
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": "config",
+              "device_class": null,
+              "original_device_class": null,
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "select.curtain_motor_7_motor_mode",
+                "state": "forward",
+                "attributes": {
+                  "options": [
+                    "forward",
+                    "back"
+                  ],
+                  "friendly_name": "Curtain Motor 7 Motor mode"
+                },
+                "last_changed": "2025-11-17T17:36:14.120684+00:00",
+                "last_reported": "2025-11-17T17:36:14.120684+00:00",
+                "last_updated": "2025-11-17T17:36:14.120684+00:00"
+              }
+            }
+          ]
+        },
+        "set_up": true,
+        "support_local": true
+      },
+      {
+        "id": "a388093c85e224d7e57q28",
+        "name": "Motorized TV Solution",
+        "category": "zndsj",
+        "product_id": "ejr6szbimwutiaqp",
+        "product_name": "Motorized TV Solution",
+        "online": true,
+        "sub": false,
+        "time_zone": "+07:00",
+        "active_time": "2025-11-05T11:12:14+00:00",
+        "create_time": "2025-11-05T11:12:14+00:00",
+        "update_time": "2025-11-05T11:12:14+00:00",
+        "function": {},
+        "status_range": {},
+        "status": {},
+        "home_assistant": {
+          "name": "Motorized TV Solution",
+          "name_by_user": null,
+          "disabled": false,
+          "disabled_by": null,
+          "entities": []
+        },
+        "set_up": false,
+        "support_local": true
+      },
+      {
+        "id": "a399b87ddfe1dd4c6aasc5",
+        "name": "Curtain Motor 8",
+        "category": "cl",
+        "product_id": "wraaecjqfiirj8go",
+        "product_name": "Curtain Motor",
+        "online": true,
+        "sub": false,
+        "time_zone": "+07:00",
+        "active_time": "2025-11-05T11:16:29+00:00",
+        "create_time": "2025-11-05T11:16:29+00:00",
+        "update_time": "2025-11-05T11:16:29+00:00",
+        "function": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          }
+        },
+        "status_range": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "percent_state": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          },
+          "fault": {
+            "type": "Bitmap",
+            "value": {
+              "label": [
+                "motor_fault"
+              ]
+            }
+          }
+        },
+        "status": {
+          "control": "open",
+          "percent_control": 0,
+          "percent_state": 0,
+          "control_back_mode": "forward",
+          "fault": 0
+        },
+        "home_assistant": {
+          "name": "Curtain Motor 8",
+          "name_by_user": null,
+          "disabled": false,
+          "disabled_by": null,
+          "entities": [
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": null,
+              "device_class": null,
+              "original_device_class": "curtain",
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "cover.curtain_motor_8_curtain",
+                "state": "open",
+                "attributes": {
+                  "current_position": 100,
+                  "device_class": "curtain",
+                  "friendly_name": "Curtain Motor 8 Curtain",
+                  "supported_features": 15
+                },
+                "last_changed": "2025-11-17T17:36:14.117201+00:00",
+                "last_reported": "2025-11-17T17:36:14.117201+00:00",
+                "last_updated": "2025-11-17T17:36:14.117201+00:00"
+              }
+            },
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": "config",
+              "device_class": null,
+              "original_device_class": null,
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "select.curtain_motor_8_motor_mode",
+                "state": "forward",
+                "attributes": {
+                  "options": [
+                    "forward",
+                    "back"
+                  ],
+                  "friendly_name": "Curtain Motor 8 Motor mode"
+                },
+                "last_changed": "2025-11-17T17:36:14.120764+00:00",
+                "last_reported": "2025-11-17T17:36:14.120764+00:00",
+                "last_updated": "2025-11-17T17:36:14.120764+00:00"
+              }
+            }
+          ]
+        },
+        "set_up": true,
+        "support_local": true
+      },
+      {
+        "id": "a368dfb87e9e21c6adlq7u",
+        "name": "Curtain Motor 9",
+        "category": "cl",
+        "product_id": "wraaecjqfiirj8go",
+        "product_name": "Curtain Motor",
+        "online": true,
+        "sub": false,
+        "time_zone": "+07:00",
+        "active_time": "2025-11-05T11:21:38+00:00",
+        "create_time": "2025-11-05T11:21:38+00:00",
+        "update_time": "2025-11-05T11:21:38+00:00",
+        "function": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          }
+        },
+        "status_range": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "percent_state": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          },
+          "fault": {
+            "type": "Bitmap",
+            "value": {
+              "label": [
+                "motor_fault"
+              ]
+            }
+          }
+        },
+        "status": {
+          "control": "open",
+          "percent_control": 0,
+          "percent_state": 0,
+          "control_back_mode": "forward",
+          "fault": 0
+        },
+        "home_assistant": {
+          "name": "Curtain Motor 9",
+          "name_by_user": null,
+          "disabled": false,
+          "disabled_by": null,
+          "entities": [
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": null,
+              "device_class": null,
+              "original_device_class": "curtain",
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "cover.curtain_motor_9_curtain",
+                "state": "open",
+                "attributes": {
+                  "current_position": 100,
+                  "device_class": "curtain",
+                  "friendly_name": "Curtain Motor 9 Curtain",
+                  "supported_features": 15
+                },
+                "last_changed": "2025-11-17T17:36:14.117664+00:00",
+                "last_reported": "2025-11-17T17:36:14.117664+00:00",
+                "last_updated": "2025-11-17T17:36:14.117664+00:00"
+              }
+            },
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": "config",
+              "device_class": null,
+              "original_device_class": null,
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "select.curtain_motor_9_motor_mode",
+                "state": "forward",
+                "attributes": {
+                  "options": [
+                    "forward",
+                    "back"
+                  ],
+                  "friendly_name": "Curtain Motor 9 Motor mode"
+                },
+                "last_changed": "2025-11-17T17:36:14.120846+00:00",
+                "last_reported": "2025-11-17T17:36:14.120846+00:00",
+                "last_updated": "2025-11-17T17:36:14.120846+00:00"
+              }
+            }
+          ]
+        },
+        "set_up": true,
+        "support_local": true
+      },
+      {
+        "id": "a35ce59b50b4852314zsgf",
+        "name": "Curtain Motor 10",
+        "category": "cl",
+        "product_id": "wraaecjqfiirj8go",
+        "product_name": "Curtain Motor",
+        "online": true,
+        "sub": false,
+        "time_zone": "+07:00",
+        "active_time": "2025-11-05T11:29:06+00:00",
+        "create_time": "2025-11-05T11:29:06+00:00",
+        "update_time": "2025-11-05T11:29:06+00:00",
+        "function": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          }
+        },
+        "status_range": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "percent_state": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          },
+          "fault": {
+            "type": "Bitmap",
+            "value": {
+              "label": [
+                "motor_fault"
+              ]
+            }
+          }
+        },
+        "status": {
+          "control": "open",
+          "percent_control": 0,
+          "percent_state": 0,
+          "control_back_mode": "forward",
+          "fault": 0
+        },
+        "home_assistant": {
+          "name": "Curtain Motor 10",
+          "name_by_user": null,
+          "disabled": false,
+          "disabled_by": null,
+          "entities": [
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": null,
+              "device_class": null,
+              "original_device_class": "curtain",
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "cover.curtain_motor_10_curtain",
+                "state": "open",
+                "attributes": {
+                  "current_position": 100,
+                  "device_class": "curtain",
+                  "friendly_name": "Curtain Motor 10 Curtain",
+                  "supported_features": 15
+                },
+                "last_changed": "2025-11-17T17:36:14.117827+00:00",
+                "last_reported": "2025-11-17T17:36:14.117827+00:00",
+                "last_updated": "2025-11-17T17:36:14.117827+00:00"
+              }
+            },
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": "config",
+              "device_class": null,
+              "original_device_class": null,
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "select.curtain_motor_10_motor_mode",
+                "state": "forward",
+                "attributes": {
+                  "options": [
+                    "forward",
+                    "back"
+                  ],
+                  "friendly_name": "Curtain Motor 10 Motor mode"
+                },
+                "last_changed": "2025-11-17T17:36:14.120950+00:00",
+                "last_reported": "2025-11-17T17:36:14.120950+00:00",
+                "last_updated": "2025-11-17T17:36:14.120950+00:00"
+              }
+            }
+          ]
+        },
+        "set_up": true,
+        "support_local": true
+      },
+      {
+        "id": "a3ab8eb4cf02202d4bptxp",
+        "name": "Motorized TV Solution 2",
+        "category": "zndsj",
+        "product_id": "ejr6szbimwutiaqp",
+        "product_name": "Motorized TV Solution",
+        "online": true,
+        "sub": false,
+        "time_zone": "+07:00",
+        "active_time": "2025-11-05T11:49:43+00:00",
+        "create_time": "2025-11-05T11:49:43+00:00",
+        "update_time": "2025-11-05T11:49:43+00:00",
+        "function": {},
+        "status_range": {},
+        "status": {},
+        "home_assistant": {
+          "name": "Motorized TV Solution 2",
+          "name_by_user": null,
+          "disabled": false,
+          "disabled_by": null,
+          "entities": []
+        },
+        "set_up": false,
+        "support_local": true
+      },
+      {
+        "id": "a3df55232c7beecf1cvrie",
+        "name": "Curtain Motor 11",
+        "category": "cl",
+        "product_id": "wraaecjqfiirj8go",
+        "product_name": "Curtain Motor",
+        "online": true,
+        "sub": false,
+        "time_zone": "+07:00",
+        "active_time": "2025-11-05T11:54:44+00:00",
+        "create_time": "2025-11-05T11:54:44+00:00",
+        "update_time": "2025-11-05T11:54:44+00:00",
+        "function": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          }
+        },
+        "status_range": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "percent_state": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          },
+          "fault": {
+            "type": "Bitmap",
+            "value": {
+              "label": [
+                "motor_fault"
+              ]
+            }
+          }
+        },
+        "status": {
+          "control": "open",
+          "percent_control": 0,
+          "percent_state": 0,
+          "control_back_mode": "forward",
+          "fault": 0
+        },
+        "home_assistant": {
+          "name": "Curtain Motor 11",
+          "name_by_user": null,
+          "disabled": false,
+          "disabled_by": null,
+          "entities": [
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": null,
+              "device_class": null,
+              "original_device_class": "curtain",
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "cover.curtain_motor_11_curtain",
+                "state": "open",
+                "attributes": {
+                  "current_position": 100,
+                  "device_class": "curtain",
+                  "friendly_name": "Curtain Motor 11 Curtain",
+                  "supported_features": 15
+                },
+                "last_changed": "2025-11-17T17:36:14.117978+00:00",
+                "last_reported": "2025-11-17T17:36:14.117978+00:00",
+                "last_updated": "2025-11-17T17:36:14.117978+00:00"
+              }
+            },
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": "config",
+              "device_class": null,
+              "original_device_class": null,
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "select.curtain_motor_11_motor_mode",
+                "state": "forward",
+                "attributes": {
+                  "options": [
+                    "forward",
+                    "back"
+                  ],
+                  "friendly_name": "Curtain Motor 11 Motor mode"
+                },
+                "last_changed": "2025-11-17T17:36:14.121036+00:00",
+                "last_reported": "2025-11-17T17:36:14.121036+00:00",
+                "last_updated": "2025-11-17T17:36:14.121036+00:00"
+              }
+            }
+          ]
+        },
+        "set_up": true,
+        "support_local": true
+      },
+      {
+        "id": "a356d0601c8cee6fe6ltvy",
+        "name": "Curtain Motor 12",
+        "category": "cl",
+        "product_id": "wraaecjqfiirj8go",
+        "product_name": "Curtain Motor",
+        "online": true,
+        "sub": false,
+        "time_zone": "+07:00",
+        "active_time": "2025-11-05T11:54:46+00:00",
+        "create_time": "2025-11-05T11:54:46+00:00",
+        "update_time": "2025-11-05T11:54:46+00:00",
+        "function": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          }
+        },
+        "status_range": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "percent_state": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          },
+          "fault": {
+            "type": "Bitmap",
+            "value": {
+              "label": [
+                "motor_fault"
+              ]
+            }
+          }
+        },
+        "status": {
+          "control": "open",
+          "percent_control": 0,
+          "percent_state": 0,
+          "control_back_mode": "forward",
+          "fault": 0
+        },
+        "home_assistant": {
+          "name": "Curtain Motor 12",
+          "name_by_user": null,
+          "disabled": false,
+          "disabled_by": null,
+          "entities": [
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": null,
+              "device_class": null,
+              "original_device_class": "curtain",
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "cover.curtain_motor_12_curtain",
+                "state": "open",
+                "attributes": {
+                  "current_position": 100,
+                  "device_class": "curtain",
+                  "friendly_name": "Curtain Motor 12 Curtain",
+                  "supported_features": 15
+                },
+                "last_changed": "2025-11-17T17:36:14.118124+00:00",
+                "last_reported": "2025-11-17T17:36:14.118124+00:00",
+                "last_updated": "2025-11-17T17:36:14.118124+00:00"
+              }
+            },
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": "config",
+              "device_class": null,
+              "original_device_class": null,
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "select.curtain_motor_12_motor_mode",
+                "state": "forward",
+                "attributes": {
+                  "options": [
+                    "forward",
+                    "back"
+                  ],
+                  "friendly_name": "Curtain Motor 12 Motor mode"
+                },
+                "last_changed": "2025-11-17T17:36:14.121110+00:00",
+                "last_reported": "2025-11-17T17:36:14.121110+00:00",
+                "last_updated": "2025-11-17T17:36:14.121110+00:00"
+              }
+            }
+          ]
+        },
+        "set_up": true,
+        "support_local": true
+      },
+      {
+        "id": "a39b7419128d33230doobh",
+        "name": "Curtain Motor 13",
+        "category": "cl",
+        "product_id": "wraaecjqfiirj8go",
+        "product_name": "Curtain Motor",
+        "online": true,
+        "sub": false,
+        "time_zone": "+07:00",
+        "active_time": "2025-11-05T11:54:46+00:00",
+        "create_time": "2025-11-05T11:54:46+00:00",
+        "update_time": "2025-11-05T11:54:46+00:00",
+        "function": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          }
+        },
+        "status_range": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "percent_state": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          },
+          "fault": {
+            "type": "Bitmap",
+            "value": {
+              "label": [
+                "motor_fault"
+              ]
+            }
+          }
+        },
+        "status": {
+          "control": "open",
+          "percent_control": 0,
+          "percent_state": 0,
+          "control_back_mode": "forward",
+          "fault": 0
+        },
+        "home_assistant": {
+          "name": "Curtain Motor 13",
+          "name_by_user": null,
+          "disabled": false,
+          "disabled_by": null,
+          "entities": [
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": null,
+              "device_class": null,
+              "original_device_class": "curtain",
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "cover.curtain_motor_13_curtain",
+                "state": "open",
+                "attributes": {
+                  "current_position": 100,
+                  "device_class": "curtain",
+                  "friendly_name": "Curtain Motor 13 Curtain",
+                  "supported_features": 15
+                },
+                "last_changed": "2025-11-17T17:36:14.118265+00:00",
+                "last_reported": "2025-11-17T17:36:14.118265+00:00",
+                "last_updated": "2025-11-17T17:36:14.118265+00:00"
+              }
+            },
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": "config",
+              "device_class": null,
+              "original_device_class": null,
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "select.curtain_motor_13_motor_mode",
+                "state": "forward",
+                "attributes": {
+                  "options": [
+                    "forward",
+                    "back"
+                  ],
+                  "friendly_name": "Curtain Motor 13 Motor mode"
+                },
+                "last_changed": "2025-11-17T17:36:14.121180+00:00",
+                "last_reported": "2025-11-17T17:36:14.121180+00:00",
+                "last_updated": "2025-11-17T17:36:14.121180+00:00"
+              }
+            }
+          ]
+        },
+        "set_up": true,
+        "support_local": true
+      },
+      {
+        "id": "a3c1a04c96bd5dd906eqba",
+        "name": "Curtain Motor 14",
+        "category": "cl",
+        "product_id": "wraaecjqfiirj8go",
+        "product_name": "Curtain Motor",
+        "online": true,
+        "sub": false,
+        "time_zone": "+07:00",
+        "active_time": "2025-11-05T11:54:53+00:00",
+        "create_time": "2025-11-05T11:54:53+00:00",
+        "update_time": "2025-11-05T11:54:53+00:00",
+        "function": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          }
+        },
+        "status_range": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "percent_state": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          },
+          "fault": {
+            "type": "Bitmap",
+            "value": {
+              "label": [
+                "motor_fault"
+              ]
+            }
+          }
+        },
+        "status": {
+          "control": "open",
+          "percent_control": 0,
+          "percent_state": 0,
+          "control_back_mode": "forward",
+          "fault": 0
+        },
+        "home_assistant": {
+          "name": "Curtain Motor 14",
+          "name_by_user": null,
+          "disabled": false,
+          "disabled_by": null,
+          "entities": [
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": null,
+              "device_class": null,
+              "original_device_class": "curtain",
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "cover.curtain_motor_14_curtain",
+                "state": "open",
+                "attributes": {
+                  "current_position": 100,
+                  "device_class": "curtain",
+                  "friendly_name": "Curtain Motor 14 Curtain",
+                  "supported_features": 15
+                },
+                "last_changed": "2025-11-17T17:36:14.118404+00:00",
+                "last_reported": "2025-11-17T17:36:14.118404+00:00",
+                "last_updated": "2025-11-17T17:36:14.118404+00:00"
+              }
+            },
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": "config",
+              "device_class": null,
+              "original_device_class": null,
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "select.curtain_motor_14_motor_mode",
+                "state": "forward",
+                "attributes": {
+                  "options": [
+                    "forward",
+                    "back"
+                  ],
+                  "friendly_name": "Curtain Motor 14 Motor mode"
+                },
+                "last_changed": "2025-11-17T17:36:14.121255+00:00",
+                "last_reported": "2025-11-17T17:36:14.121255+00:00",
+                "last_updated": "2025-11-17T17:36:14.121255+00:00"
+              }
+            }
+          ]
+        },
+        "set_up": true,
+        "support_local": true
+      },
+      {
+        "id": "a3632b073af89c4174rh8t",
+        "name": "ELY Sheer 3",
+        "category": "cl",
+        "product_id": "wraaecjqfiirj8go",
+        "product_name": "Curtain Motor",
+        "online": true,
+        "sub": false,
+        "time_zone": "+07:00",
+        "active_time": "2025-11-05T13:52:09+00:00",
+        "create_time": "2025-11-05T13:52:09+00:00",
+        "update_time": "2025-11-05T13:52:09+00:00",
+        "function": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          }
+        },
+        "status_range": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "percent_state": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          },
+          "fault": {
+            "type": "Bitmap",
+            "value": {
+              "label": [
+                "motor_fault"
+              ]
+            }
+          }
+        },
+        "status": {
+          "control": "open",
+          "percent_control": 100,
+          "percent_state": 0,
+          "control_back_mode": "forward",
+          "fault": 0
+        },
+        "home_assistant": {
+          "name": "ELY Sheer 3",
+          "name_by_user": null,
+          "disabled": false,
+          "disabled_by": null,
+          "entities": [
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": null,
+              "device_class": null,
+              "original_device_class": "curtain",
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "cover.sheer_3_curtain",
+                "state": "open",
+                "attributes": {
+                  "current_position": 100,
+                  "device_class": "curtain",
+                  "friendly_name": "ELY Sheer 3 Curtain",
+                  "supported_features": 15
+                },
+                "last_changed": "2025-11-17T17:36:14.118554+00:00",
+                "last_reported": "2025-11-17T17:36:14.118554+00:00",
+                "last_updated": "2025-11-17T17:36:14.118554+00:00"
+              }
+            },
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": "config",
+              "device_class": null,
+              "original_device_class": null,
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "select.sheer_3_motor_mode",
+                "state": "forward",
+                "attributes": {
+                  "options": [
+                    "forward",
+                    "back"
+                  ],
+                  "friendly_name": "ELY Sheer 3 Motor mode"
+                },
+                "last_changed": "2025-11-17T17:36:14.121326+00:00",
+                "last_reported": "2025-11-17T17:36:14.121326+00:00",
+                "last_updated": "2025-11-17T17:36:14.121326+00:00"
+              }
+            }
+          ]
+        },
+        "set_up": true,
+        "support_local": true
+      },
+      {
+        "id": "a31377d63eadd7c9e6xq0h",
+        "name": "ELY Sheer 2",
+        "category": "cl",
+        "product_id": "wraaecjqfiirj8go",
+        "product_name": "Curtain Motor",
+        "online": true,
+        "sub": false,
+        "time_zone": "+07:00",
+        "active_time": "2025-11-05T13:52:10+00:00",
+        "create_time": "2025-11-05T13:52:10+00:00",
+        "update_time": "2025-11-05T13:52:10+00:00",
+        "function": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          }
+        },
+        "status_range": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "percent_state": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          },
+          "fault": {
+            "type": "Bitmap",
+            "value": {
+              "label": [
+                "motor_fault"
+              ]
+            }
+          }
+        },
+        "status": {
+          "control": "open",
+          "percent_control": 100,
+          "percent_state": 100,
+          "control_back_mode": "forward",
+          "fault": 0
+        },
+        "home_assistant": {
+          "name": "ELY Sheer 2",
+          "name_by_user": null,
+          "disabled": false,
+          "disabled_by": null,
+          "entities": [
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": null,
+              "device_class": null,
+              "original_device_class": "curtain",
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "cover.sheer_2_curtain",
+                "state": "closed",
+                "attributes": {
+                  "current_position": 0,
+                  "device_class": "curtain",
+                  "friendly_name": "ELY Sheer 2 Curtain",
+                  "supported_features": 15
+                },
+                "last_changed": "2025-11-17T17:36:14.118705+00:00",
+                "last_reported": "2025-11-17T17:36:14.118705+00:00",
+                "last_updated": "2025-11-17T17:36:14.118705+00:00"
+              }
+            },
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": "config",
+              "device_class": null,
+              "original_device_class": null,
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "select.sheer_2_motor_mode",
+                "state": "forward",
+                "attributes": {
+                  "options": [
+                    "forward",
+                    "back"
+                  ],
+                  "friendly_name": "ELY Sheer 2 Motor mode"
+                },
+                "last_changed": "2025-11-17T17:36:14.121399+00:00",
+                "last_reported": "2025-11-17T17:36:14.121399+00:00",
+                "last_updated": "2025-11-17T17:36:14.121399+00:00"
+              }
+            }
+          ]
+        },
+        "set_up": true,
+        "support_local": true
+      },
+      {
+        "id": "a3f89c0c484fa3d841nkt2",
+        "name": "ELY Blackout 3",
+        "category": "cl",
+        "product_id": "wraaecjqfiirj8go",
+        "product_name": "Curtain Motor",
+        "online": true,
+        "sub": false,
+        "time_zone": "+07:00",
+        "active_time": "2025-11-05T13:52:11+00:00",
+        "create_time": "2025-11-05T13:52:11+00:00",
+        "update_time": "2025-11-05T13:52:11+00:00",
+        "function": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          }
+        },
+        "status_range": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "percent_state": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          },
+          "fault": {
+            "type": "Bitmap",
+            "value": {
+              "label": [
+                "motor_fault"
+              ]
+            }
+          }
+        },
+        "status": {
+          "control": "open",
+          "percent_control": 45,
+          "percent_state": 0,
+          "control_back_mode": "forward",
+          "fault": 0
+        },
+        "home_assistant": {
+          "name": "ELY Blackout 3",
+          "name_by_user": null,
+          "disabled": false,
+          "disabled_by": null,
+          "entities": [
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": null,
+              "device_class": null,
+              "original_device_class": "curtain",
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "cover.blackout_3_curtain",
+                "state": "open",
+                "attributes": {
+                  "current_position": 100,
+                  "device_class": "curtain",
+                  "friendly_name": "ELY Blackout 3 Curtain",
+                  "supported_features": 15
+                },
+                "last_changed": "2025-11-17T17:36:14.118844+00:00",
+                "last_reported": "2025-11-17T17:36:14.118844+00:00",
+                "last_updated": "2025-11-17T17:36:14.118844+00:00"
+              }
+            },
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": "config",
+              "device_class": null,
+              "original_device_class": null,
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "select.blackout_3_motor_mode",
+                "state": "forward",
+                "attributes": {
+                  "options": [
+                    "forward",
+                    "back"
+                  ],
+                  "friendly_name": "ELY Blackout 3 Motor mode"
+                },
+                "last_changed": "2025-11-17T17:36:14.121471+00:00",
+                "last_reported": "2025-11-17T17:36:14.121471+00:00",
+                "last_updated": "2025-11-17T17:36:14.121471+00:00"
+              }
+            }
+          ]
+        },
+        "set_up": true,
+        "support_local": true
+      },
+      {
+        "id": "a3a5bbde315feffcd3btxq",
+        "name": "ELY Blackout 2",
+        "category": "cl",
+        "product_id": "wraaecjqfiirj8go",
+        "product_name": "Curtain Motor",
+        "online": true,
+        "sub": false,
+        "time_zone": "+07:00",
+        "active_time": "2025-11-05T13:52:21+00:00",
+        "create_time": "2025-11-05T13:52:21+00:00",
+        "update_time": "2025-11-05T13:52:21+00:00",
+        "function": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          }
+        },
+        "status_range": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "percent_state": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          },
+          "fault": {
+            "type": "Bitmap",
+            "value": {
+              "label": [
+                "motor_fault"
+              ]
+            }
+          }
+        },
+        "status": {
+          "control": "open",
+          "percent_control": 0,
+          "percent_state": 100,
+          "control_back_mode": "forward",
+          "fault": 0
+        },
+        "home_assistant": {
+          "name": "ELY Blackout 2",
+          "name_by_user": null,
+          "disabled": false,
+          "disabled_by": null,
+          "entities": [
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": null,
+              "device_class": null,
+              "original_device_class": "curtain",
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "cover.blackout_2_curtain",
+                "state": "closed",
+                "attributes": {
+                  "current_position": 0,
+                  "device_class": "curtain",
+                  "friendly_name": "ELY Blackout 2 Curtain",
+                  "supported_features": 15
+                },
+                "last_changed": "2025-11-17T17:36:14.119005+00:00",
+                "last_reported": "2025-11-17T17:36:14.119005+00:00",
+                "last_updated": "2025-11-17T17:36:14.119005+00:00"
+              }
+            },
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": "config",
+              "device_class": null,
+              "original_device_class": null,
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "select.blackout_2_motor_mode",
+                "state": "forward",
+                "attributes": {
+                  "options": [
+                    "forward",
+                    "back"
+                  ],
+                  "friendly_name": "ELY Blackout 2 Motor mode"
+                },
+                "last_changed": "2025-11-17T17:36:14.121546+00:00",
+                "last_reported": "2025-11-17T17:36:14.121546+00:00",
+                "last_updated": "2025-11-17T17:36:14.121546+00:00"
+              }
+            }
+          ]
+        },
+        "set_up": true,
+        "support_local": true
+      },
+      {
+        "id": "a350a65f2a2042fa79prio",
+        "name": "ELY Sheer 1",
+        "category": "cl",
+        "product_id": "wraaecjqfiirj8go",
+        "product_name": "Curtain Motor",
+        "online": true,
+        "sub": false,
+        "time_zone": "+07:00",
+        "active_time": "2025-11-05T13:55:30+00:00",
+        "create_time": "2025-11-05T13:55:30+00:00",
+        "update_time": "2025-11-05T13:55:30+00:00",
+        "function": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          }
+        },
+        "status_range": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "percent_state": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          },
+          "fault": {
+            "type": "Bitmap",
+            "value": {
+              "label": [
+                "motor_fault"
+              ]
+            }
+          }
+        },
+        "status": {
+          "control": "open",
+          "percent_control": 0,
+          "percent_state": 100,
+          "control_back_mode": "back",
+          "fault": 0
+        },
+        "home_assistant": {
+          "name": "ELY Sheer 1",
+          "name_by_user": null,
+          "disabled": false,
+          "disabled_by": null,
+          "entities": [
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": null,
+              "device_class": null,
+              "original_device_class": "curtain",
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "cover.blackout_1_curtain",
+                "state": "closed",
+                "attributes": {
+                  "current_position": 0,
+                  "device_class": "curtain",
+                  "friendly_name": "ELY Sheer 1 Curtain",
+                  "supported_features": 15
+                },
+                "last_changed": "2025-11-17T17:36:14.119140+00:00",
+                "last_reported": "2025-11-17T17:36:14.119140+00:00",
+                "last_updated": "2025-11-17T17:36:14.119140+00:00"
+              }
+            },
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": "config",
+              "device_class": null,
+              "original_device_class": null,
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "select.blackout_1_motor_mode",
+                "state": "back",
+                "attributes": {
+                  "options": [
+                    "forward",
+                    "back"
+                  ],
+                  "friendly_name": "ELY Sheer 1 Motor mode"
+                },
+                "last_changed": "2025-11-17T17:36:14.121619+00:00",
+                "last_reported": "2025-11-17T17:36:14.121619+00:00",
+                "last_updated": "2025-11-17T17:36:14.121619+00:00"
+              }
+            }
+          ]
+        },
+        "set_up": true,
+        "support_local": true
+      },
+      {
+        "id": "a3cbb1bb4e9686e396rl6x",
+        "name": "ELY Blackout 1",
+        "category": "cl",
+        "product_id": "wraaecjqfiirj8go",
+        "product_name": "Curtain Motor",
+        "online": true,
+        "sub": false,
+        "time_zone": "+07:00",
+        "active_time": "2025-11-05T13:55:30+00:00",
+        "create_time": "2025-11-05T13:55:30+00:00",
+        "update_time": "2025-11-05T13:55:30+00:00",
+        "function": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          }
+        },
+        "status_range": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "percent_state": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          },
+          "fault": {
+            "type": "Bitmap",
+            "value": {
+              "label": [
+                "motor_fault"
+              ]
+            }
+          }
+        },
+        "status": {
+          "control": "open",
+          "percent_control": 100,
+          "percent_state": 0,
+          "control_back_mode": "back",
+          "fault": 0
+        },
+        "home_assistant": {
+          "name": "ELY Blackout 1",
+          "name_by_user": null,
+          "disabled": false,
+          "disabled_by": null,
+          "entities": [
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": null,
+              "device_class": null,
+              "original_device_class": "curtain",
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "cover.sheer_1_curtain",
+                "state": "open",
+                "attributes": {
+                  "current_position": 100,
+                  "device_class": "curtain",
+                  "friendly_name": "ELY Blackout 1 Curtain",
+                  "supported_features": 15
+                },
+                "last_changed": "2025-11-17T17:36:14.119273+00:00",
+                "last_reported": "2025-11-17T17:36:14.119273+00:00",
+                "last_updated": "2025-11-17T17:36:14.119273+00:00"
+              }
+            },
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": "config",
+              "device_class": null,
+              "original_device_class": null,
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "select.sheer_1_motor_mode",
+                "state": "back",
+                "attributes": {
+                  "options": [
+                    "forward",
+                    "back"
+                  ],
+                  "friendly_name": "ELY Blackout 1 Motor mode"
+                },
+                "last_changed": "2025-11-17T17:36:14.121691+00:00",
+                "last_reported": "2025-11-17T17:36:14.121691+00:00",
+                "last_updated": "2025-11-17T17:36:14.121691+00:00"
+              }
+            }
+          ]
+        },
+        "set_up": true,
+        "support_local": true
+      },
+      {
+        "id": "a306cd3b3b0c51ec52djaw",
+        "name": "ELY Sheer 4",
+        "category": "cl",
+        "product_id": "wraaecjqfiirj8go",
+        "product_name": "Curtain Motor",
+        "online": true,
+        "sub": false,
+        "time_zone": "+07:00",
+        "active_time": "2025-11-05T13:59:50+00:00",
+        "create_time": "2025-11-05T13:59:50+00:00",
+        "update_time": "2025-11-05T13:59:50+00:00",
+        "function": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          }
+        },
+        "status_range": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "percent_state": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          },
+          "fault": {
+            "type": "Bitmap",
+            "value": {
+              "label": [
+                "motor_fault"
+              ]
+            }
+          }
+        },
+        "status": {
+          "control": "open",
+          "percent_control": 0,
+          "percent_state": 0,
+          "control_back_mode": "forward",
+          "fault": 0
+        },
+        "home_assistant": {
+          "name": "ELY Sheer 4",
+          "name_by_user": null,
+          "disabled": false,
+          "disabled_by": null,
+          "entities": [
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": null,
+              "device_class": null,
+              "original_device_class": "curtain",
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "cover.sheer_4_curtain",
+                "state": "open",
+                "attributes": {
+                  "current_position": 100,
+                  "device_class": "curtain",
+                  "friendly_name": "ELY Sheer 4 Curtain",
+                  "supported_features": 15
+                },
+                "last_changed": "2025-11-17T17:36:14.119406+00:00",
+                "last_reported": "2025-11-17T17:36:14.119406+00:00",
+                "last_updated": "2025-11-17T17:36:14.119406+00:00"
+              }
+            },
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": "config",
+              "device_class": null,
+              "original_device_class": null,
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "select.sheer_4_motor_mode",
+                "state": "forward",
+                "attributes": {
+                  "options": [
+                    "forward",
+                    "back"
+                  ],
+                  "friendly_name": "ELY Sheer 4 Motor mode"
+                },
+                "last_changed": "2025-11-17T17:36:14.121762+00:00",
+                "last_reported": "2025-11-17T17:36:14.121762+00:00",
+                "last_updated": "2025-11-17T17:36:14.121762+00:00"
+              }
+            }
+          ]
+        },
+        "set_up": true,
+        "support_local": true
+      },
+      {
+        "id": "a320d9ecc4e662ba9fza10",
+        "name": "ELY Blackout 4",
+        "category": "cl",
+        "product_id": "wraaecjqfiirj8go",
+        "product_name": "Curtain Motor",
+        "online": true,
+        "sub": false,
+        "time_zone": "+07:00",
+        "active_time": "2025-11-05T13:59:50+00:00",
+        "create_time": "2025-11-05T13:59:50+00:00",
+        "update_time": "2025-11-05T13:59:50+00:00",
+        "function": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          }
+        },
+        "status_range": {
+          "control": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "open",
+                "stop",
+                "close",
+                "continue"
+              ]
+            }
+          },
+          "percent_control": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "percent_state": {
+            "type": "Integer",
+            "value": {
+              "unit": "%",
+              "min": 0,
+              "max": 100,
+              "scale": 0,
+              "step": 1
+            }
+          },
+          "control_back_mode": {
+            "type": "Enum",
+            "value": {
+              "range": [
+                "forward",
+                "back"
+              ]
+            }
+          },
+          "fault": {
+            "type": "Bitmap",
+            "value": {
+              "label": [
+                "motor_fault"
+              ]
+            }
+          }
+        },
+        "status": {
+          "control": "open",
+          "percent_control": 0,
+          "percent_state": 0,
+          "control_back_mode": "forward",
+          "fault": 0
+        },
+        "home_assistant": {
+          "name": "ELY Blackout 4",
+          "name_by_user": null,
+          "disabled": false,
+          "disabled_by": null,
+          "entities": [
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": null,
+              "device_class": null,
+              "original_device_class": "curtain",
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "cover.blackout_4_curtain",
+                "state": "open",
+                "attributes": {
+                  "current_position": 100,
+                  "device_class": "curtain",
+                  "friendly_name": "ELY Blackout 4 Curtain",
+                  "supported_features": 15
+                },
+                "last_changed": "2025-11-17T17:36:14.119537+00:00",
+                "last_reported": "2025-11-17T17:36:14.119537+00:00",
+                "last_updated": "2025-11-17T17:36:14.119537+00:00"
+              }
+            },
+            {
+              "disabled": false,
+              "disabled_by": null,
+              "entity_category": "config",
+              "device_class": null,
+              "original_device_class": null,
+              "icon": null,
+              "original_icon": null,
+              "unit_of_measurement": null,
+              "state": {
+                "entity_id": "select.blackout_4_motor_mode",
+                "state": "forward",
+                "attributes": {
+                  "options": [
+                    "forward",
+                    "back"
+                  ],
+                  "friendly_name": "ELY Blackout 4 Motor mode"
+                },
+                "last_changed": "2025-11-17T17:36:14.121834+00:00",
+                "last_reported": "2025-11-17T17:36:14.121834+00:00",
+                "last_updated": "2025-11-17T17:36:14.121834+00:00"
+              }
+            }
+          ]
+        },
+        "set_up": true,
+        "support_local": true
+      },
+      {
+        "id": "a34f855e95004963895fyy",
+        "name": "Motorized TV Solution 3",
+        "category": "zndsj",
+        "product_id": "ejr6szbimwutiaqp",
+        "product_name": "Motorized TV Solution",
+        "online": true,
+        "sub": false,
+        "time_zone": "+07:00",
+        "active_time": "2025-11-05T14:57:53+00:00",
+        "create_time": "2025-11-05T14:57:53+00:00",
+        "update_time": "2025-11-05T14:57:53+00:00",
+        "function": {},
+        "status_range": {},
+        "status": {},
+        "home_assistant": {
+          "name": "Motorized TV Solution 3",
+          "name_by_user": null,
+          "disabled": false,
+          "disabled_by": null,
+          "entities": []
+        },
+        "set_up": false,
+        "support_local": true
+      }
+    ]
+  },
+  "issues": []
+}

@@ -1,0 +1,288 @@
+{
+  "home_assistant": {
+    "installation_type": "Home Assistant OS",
+    "version": "2025.11.2",
+    "dev": false,
+    "hassio": true,
+    "virtualenv": false,
+    "python_version": "3.13.9",
+    "docker": true,
+    "arch": "x86_64",
+    "timezone": "Asia/Bangkok",
+    "os_name": "Linux",
+    "os_version": "6.12.51-haos",
+    "container_arch": "amd64",
+    "supervisor": "2025.11.2",
+    "host_os": "Home Assistant OS 16.3",
+    "docker_version": "28.3.3",
+    "chassis": "vm",
+    "run_as_root": true
+  },
+  "custom_components": {
+    "tuya_custom": {
+      "documentation": "https://www.home-assistant.io/integrations/tuya",
+      "version": "1.0.2",
+      "requirements": [
+        "tuya-device-sharing-sdk==0.2.5"
+      ]
+    },
+    "toshiba_ac": {
+      "documentation": "https://github.com/h4de5/home-assistant-toshiba_ac",
+      "version": "2025.3.1",
+      "requirements": [
+        "toshiba-ac@git+https://github.com/KaSroka/Toshiba-AC-control@v0.3.11",
+        "janus==1.0.0"
+      ]
+    },
+    "weatherapi": {
+      "documentation": "https://github.com/iprak/weatherapi",
+      "version": "1.1.6",
+      "requirements": []
+    },
+    "hacs": {
+      "documentation": "https://hacs.xyz/docs/use/",
+      "version": "2.0.5",
+      "requirements": [
+        "aiogithubapi>=22.10.1"
+      ]
+    },
+    "sonoff": {
+      "documentation": "https://github.com/AlexxIT/SonoffLAN",
+      "version": "3.9.3",
+      "requirements": [
+        "pycryptodome>=3.6.6"
+      ]
+    }
+  },
+  "integration_manifest": {
+    "domain": "tuya_custom",
+    "name": "Tuya Custom",
+    "version": "1.0.2",
+    "codeowners": [],
+    "config_flow": true,
+    "dependencies": [
+      "ffmpeg"
+    ],
+    "dhcp": [
+      {
+        "macaddress": "105A17*"
+      },
+      {
+        "macaddress": "10D561*"
+      },
+      {
+        "macaddress": "1869D8*"
+      },
+      {
+        "macaddress": "381F8D*"
+      },
+      {
+        "macaddress": "508A06*"
+      },
+      {
+        "macaddress": "68572D*"
+      },
+      {
+        "macaddress": "708976*"
+      },
+      {
+        "macaddress": "7CF666*"
+      },
+      {
+        "macaddress": "84E342*"
+      },
+      {
+        "macaddress": "D4A651*"
+      },
+      {
+        "macaddress": "D81F12*"
+      }
+    ],
+    "documentation": "https://www.home-assistant.io/integrations/tuya",
+    "integration_type": "hub",
+    "iot_class": "cloud_push",
+    "loggers": [
+      "tuya_sharing"
+    ],
+    "requirements": [
+      "tuya-device-sharing-sdk==0.2.5"
+    ],
+    "is_built_in": false,
+    "overwrites_built_in": false
+  },
+  "setup_times": {
+    "null": {
+      "setup": 1.4573975931853056e-05
+    },
+    "01KA3QYR1YWTEZ7W17V7G9FYTN": {
+      "wait_import_platforms": -0.032461387978401035,
+      "config_entry_setup": 2.8466166489524767
+    }
+  },
+  "data": {
+    "endpoint": "https://apigw-sg.iotbing.com",
+    "terminal_id": "1763209863017ofZLto",
+    "mqtt_connected": true,
+    "disabled_by": null,
+    "disabled_polling": false,
+    "id": "a3cbb1bb4e9686e396rl6x",
+    "name": "ELY Blackout 1",
+    "category": "cl",
+    "product_id": "wraaecjqfiirj8go",
+    "product_name": "Curtain Motor",
+    "online": true,
+    "sub": false,
+    "time_zone": "+07:00",
+    "active_time": "2025-11-05T13:55:30+00:00",
+    "create_time": "2025-11-05T13:55:30+00:00",
+    "update_time": "2025-11-05T13:55:30+00:00",
+    "function": {
+      "control": {
+        "type": "Enum",
+        "value": "{\"range\":[\"open\",\"stop\",\"close\",\"continue\"]}"
+      },
+      "percent_control": {
+        "type": "Integer",
+        "value": "{\"unit\":\"%\",\"min\":0,\"max\":100,\"scale\":0,\"step\":1}"
+      },
+      "control_back_mode": {
+        "type": "Enum",
+        "value": "{\"range\":[\"forward\",\"back\"]}"
+      }
+    },
+    "status_range": {
+      "control": {
+        "type": "Enum",
+        "value": "{\"range\":[\"open\",\"stop\",\"close\",\"continue\"]}"
+      },
+      "percent_control": {
+        "type": "Integer",
+        "value": "{\"unit\":\"%\",\"min\":0,\"max\":100,\"scale\":0,\"step\":1}"
+      },
+      "percent_state": {
+        "type": "Integer",
+        "value": "{\"unit\":\"%\",\"min\":0,\"max\":100,\"scale\":0,\"step\":1}"
+      },
+      "control_back_mode": {
+        "type": "Enum",
+        "value": "{\"range\":[\"forward\",\"back\"]}"
+      },
+      "fault": {
+        "type": "Bitmap",
+        "value": "{\"label\":[\"motor_fault\"]}"
+      }
+    },
+    "status": {
+      "control": "open",
+      "percent_control": 100,
+      "percent_state": 0,
+      "control_back_mode": "back",
+      "fault": 0
+    },
+    "home_assistant": {
+      "name": "ELY Blackout 1",
+      "name_by_user": null,
+      "disabled": false,
+      "disabled_by": null,
+      "entities": [
+        {
+          "disabled": false,
+          "disabled_by": null,
+          "entity_category": null,
+          "device_class": null,
+          "original_device_class": "curtain",
+          "icon": null,
+          "original_icon": null,
+          "unit_of_measurement": null,
+          "state": {
+            "entity_id": "cover.sheer_1_none",
+            "state": "unavailable",
+            "attributes": {
+              "restored": true,
+              "device_class": "curtain",
+              "supported_features": 15
+            },
+            "last_changed": "2025-11-17T17:12:44.681684+00:00",
+            "last_reported": "2025-11-17T17:12:44.681684+00:00",
+            "last_updated": "2025-11-17T17:12:44.681684+00:00"
+          }
+        },
+        {
+          "disabled": false,
+          "disabled_by": null,
+          "entity_category": "config",
+          "device_class": null,
+          "original_device_class": null,
+          "icon": null,
+          "original_icon": null,
+          "unit_of_measurement": null,
+          "state": {
+            "entity_id": "select.sheer_1_none",
+            "state": "unavailable",
+            "attributes": {
+              "restored": true,
+              "options": [
+                "forward",
+                "back"
+              ],
+              "supported_features": 0
+            },
+            "last_changed": "2025-11-17T17:12:44.682324+00:00",
+            "last_reported": "2025-11-17T17:12:44.682324+00:00",
+            "last_updated": "2025-11-17T17:12:44.682324+00:00"
+          }
+        },
+        {
+          "disabled": false,
+          "disabled_by": null,
+          "entity_category": null,
+          "device_class": null,
+          "original_device_class": "curtain",
+          "icon": null,
+          "original_icon": null,
+          "unit_of_measurement": null,
+          "state": {
+            "entity_id": "cover.ely_blackout_1_none",
+            "state": "open",
+            "attributes": {
+              "current_position": 100,
+              "device_class": "curtain",
+              "friendly_name": "ELY Blackout 1 None",
+              "supported_features": 15
+            },
+            "last_changed": "2025-11-17T17:35:52.131605+00:00",
+            "last_reported": "2025-11-17T17:35:52.131605+00:00",
+            "last_updated": "2025-11-17T17:35:52.131605+00:00"
+          }
+        },
+        {
+          "disabled": false,
+          "disabled_by": null,
+          "entity_category": "config",
+          "device_class": null,
+          "original_device_class": null,
+          "icon": null,
+          "original_icon": null,
+          "unit_of_measurement": null,
+          "state": {
+            "entity_id": "select.ely_blackout_1_none",
+            "state": "back",
+            "attributes": {
+              "options": [
+                "forward",
+                "back"
+              ],
+              "friendly_name": "ELY Blackout 1 None"
+            },
+            "last_changed": "2025-11-17T17:35:52.134104+00:00",
+            "last_reported": "2025-11-17T17:35:52.134104+00:00",
+            "last_updated": "2025-11-17T17:35:52.134104+00:00"
+          }
+        }
+      ]
+    },
+    "set_up": true,
+    "support_local": true
+  },
+  "issues": []
+}

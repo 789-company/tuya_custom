@@ -7,10 +7,6 @@ from typing import Any
 
 from tuya_sharing import CustomerDevice, Manager
 
-# Import workaround functions for Tuya Cloud state update issues
-# Uncomment the line below to enable workarounds
-# from .workarounds import polling_fallback, post_command_refresh, optimistic_cover_update
-
 from homeassistant.components.cover import (
     ATTR_POSITION,
     ATTR_TILT_POSITION,
@@ -125,7 +121,8 @@ COVERS: dict[DeviceCategory, tuple[TuyaCoverEntityDescription, ...]] = {
             key=DPCode.CONTROL,
             translation_key="curtain",
             current_state=(DPCode.SITUATION_SET, DPCode.CONTROL),
-            current_position=(DPCode.PERCENT_STATE, DPCode.PERCENT_CONTROL),
+            # TUYA_CUSTOM FIX: Use only PERCENT_STATE (actual position) not PERCENT_CONTROL (command)
+            current_position=DPCode.PERCENT_STATE,
             set_position=DPCode.PERCENT_CONTROL,
             device_class=CoverDeviceClass.CURTAIN,
         ),
@@ -160,7 +157,8 @@ COVERS: dict[DeviceCategory, tuple[TuyaCoverEntityDescription, ...]] = {
         TuyaCoverEntityDescription(
             key=DPCode.SWITCH_1,
             translation_key="blind",
-            current_position=DPCode.PERCENT_CONTROL,
+            # TUYA_CUSTOM FIX: Use PERCENT_STATE for actual position
+            current_position=DPCode.PERCENT_STATE,
             set_position=DPCode.PERCENT_CONTROL,
             device_class=CoverDeviceClass.BLIND,
         ),
@@ -169,7 +167,8 @@ COVERS: dict[DeviceCategory, tuple[TuyaCoverEntityDescription, ...]] = {
         TuyaCoverEntityDescription(
             key=DPCode.CONTROL,
             translation_key="curtain",
-            current_position=DPCode.PERCENT_CONTROL,
+            # TUYA_CUSTOM FIX: Use PERCENT_STATE for actual position
+            current_position=DPCode.PERCENT_STATE,
             position_wrapper=_ControlBackModePercentageMappingWrapper,
             set_position=DPCode.PERCENT_CONTROL,
             device_class=CoverDeviceClass.CURTAIN,
@@ -178,7 +177,8 @@ COVERS: dict[DeviceCategory, tuple[TuyaCoverEntityDescription, ...]] = {
             key=DPCode.CONTROL_2,
             translation_key="indexed_curtain",
             translation_placeholders={"index": "2"},
-            current_position=DPCode.PERCENT_CONTROL_2,
+            # TUYA_CUSTOM FIX: Use PERCENT_STATE_2 for actual position
+            current_position=DPCode.PERCENT_STATE_2,
             position_wrapper=_ControlBackModePercentageMappingWrapper,
             set_position=DPCode.PERCENT_CONTROL_2,
             device_class=CoverDeviceClass.CURTAIN,
@@ -269,27 +269,6 @@ class TuyaCoverEntity(TuyaEntity, CoverEntity):
         self._current_position = current_position or set_position
         self._set_position = set_position
         self._tilt_position = tilt_position
-        
-        # ============================================================================
-        # WORKAROUND CONFIGURATION
-        # ============================================================================
-        # Enable these flags to activate workarounds for Tuya Cloud state update issues
-        # Related issue: https://github.com/home-assistant/core/issues/156543
-        
-        # Enable polling fallback (periodically fetch state from cloud)
-        self._enable_polling = False  # Set to True to enable
-        self._polling_interval = 30  # seconds
-        self._polling_task = None
-        
-        # Enable optimistic updates (immediate UI feedback)
-        self._enable_optimistic = False  # Set to True to enable
-        self._optimistic_position = None
-        
-        # Enable post-command refresh (force refresh after commands)
-        self._enable_post_command_refresh = True  # Recommended: keep True
-        self._post_command_delay = 3  # seconds
-        
-        # ============================================================================
 
         # Check if this cover is based on a switch or has controls
         if get_dpcode(self.device, description.key):
@@ -313,36 +292,6 @@ class TuyaCoverEntity(TuyaEntity, CoverEntity):
             self._attr_supported_features |= CoverEntityFeature.SET_POSITION
         if tilt_position:
             self._attr_supported_features |= CoverEntityFeature.SET_TILT_POSITION
-    
-    async def async_added_to_hass(self) -> None:
-        """Call when entity is added to hass."""
-        await super().async_added_to_hass()
-        
-        # ============================================================================
-        # WORKAROUND: POLLING FALLBACK
-        # ============================================================================
-        # Uncomment the code below to enable periodic polling for device state
-        # This is useful when Tuya Cloud doesn't send MQTT push updates
-        
-        # if self._enable_polling:
-        #     from .workarounds import polling_fallback
-        #     self._polling_task = self.hass.async_create_task(
-        #         polling_fallback(
-        #             self.hass,
-        #             self.device_manager,
-        #             self.device.id,
-        #             interval=self._polling_interval,
-        #         )
-        #     )
-        #     self.async_on_remove(lambda: self._polling_task.cancel())
-        
-        # ============================================================================
-    
-    async def async_will_remove_from_hass(self) -> None:
-        """Call when entity will be removed from hass."""
-        # Cancel polling task if it exists
-        if self._polling_task is not None:
-            self._polling_task.cancel()
 
     @property
     def current_cover_position(self) -> int | None:
@@ -378,22 +327,6 @@ class TuyaCoverEntity(TuyaEntity, CoverEntity):
 
     def open_cover(self, **kwargs: Any) -> None:
         """Open the cover."""
-        # ============================================================================
-        # WORKAROUND: OPTIMISTIC UPDATE
-        # ============================================================================
-        # Uncomment to enable immediate UI feedback before cloud confirms
-        
-        # if self._enable_optimistic:
-        #     from .workarounds import optimistic_cover_update
-        #     self._optimistic_position = optimistic_cover_update(
-        #         self.current_cover_position,
-        #         100,
-        #         is_opening=True,
-        #     )
-        #     self.async_write_ha_state()
-        
-        # ============================================================================
-        
         value: bool | str = True
         if find_dpcode(
             self.device,
@@ -411,46 +344,9 @@ class TuyaCoverEntity(TuyaEntity, CoverEntity):
             commands.append(self._set_position.get_update_command(self.device, 100))
 
         self._send_command(commands)
-        
-        # ============================================================================
-        # WORKAROUND: POST-COMMAND REFRESH
-        # ============================================================================
-        # Force a state refresh after sending command (recommended)
-        
-        if self._enable_post_command_refresh:
-            from .workarounds import post_command_refresh
-            # Use call_soon_threadsafe to schedule the task from sync context
-            self.hass.loop.call_soon_threadsafe(
-                lambda: self.hass.async_create_task(
-                    post_command_refresh(
-                        self.hass,
-                        self.device_manager,
-                        self.device.id,
-                        delay=self._post_command_delay,
-                    )
-                )
-            )
-        
-        # ============================================================================
 
     def close_cover(self, **kwargs: Any) -> None:
         """Close cover."""
-        # ============================================================================
-        # WORKAROUND: OPTIMISTIC UPDATE
-        # ============================================================================
-        # Uncomment to enable immediate UI feedback before cloud confirms
-        
-        # if self._enable_optimistic:
-        #     from .workarounds import optimistic_cover_update
-        #     self._optimistic_position = optimistic_cover_update(
-        #         self.current_cover_position,
-        #         0,
-        #         is_opening=False,
-        #     )
-        #     self.async_write_ha_state()
-        
-        # ============================================================================
-        
         value: bool | str = False
         if find_dpcode(
             self.device,
@@ -468,62 +364,10 @@ class TuyaCoverEntity(TuyaEntity, CoverEntity):
             commands.append(self._set_position.get_update_command(self.device, 0))
 
         self._send_command(commands)
-        
-        # ============================================================================
-        # WORKAROUND: POST-COMMAND REFRESH
-        # ============================================================================
-        # Force a state refresh after sending command (recommended)
-        
-        if self._enable_post_command_refresh:
-            from .workarounds import post_command_refresh
-            # Use call_soon_threadsafe to schedule the task from sync context
-            self.hass.loop.call_soon_threadsafe(
-                lambda: self.hass.async_create_task(
-                    post_command_refresh(
-                        self.hass,
-                        self.device_manager,
-                        self.device.id,
-                        delay=self._post_command_delay,
-                    )
-                )
-            )
-        
-        # ============================================================================
 
     async def async_set_cover_position(self, **kwargs: Any) -> None:
         """Move the cover to a specific position."""
-        target_position = kwargs[ATTR_POSITION]
-        
-        # ============================================================================
-        # WORKAROUND: OPTIMISTIC UPDATE
-        # ============================================================================
-        # Uncomment to enable immediate UI feedback before cloud confirms
-        
-        # if self._enable_optimistic:
-        #     self._optimistic_position = target_position
-        #     self.async_write_ha_state()
-        
-        # ============================================================================
-        
-        await self._async_send_dpcode_update(self._set_position, target_position)
-        
-        # ============================================================================
-        # WORKAROUND: POST-COMMAND REFRESH
-        # ============================================================================
-        # Force a state refresh after sending command (recommended)
-        
-        if self._enable_post_command_refresh:
-            from .workarounds import post_command_refresh
-            self.hass.async_create_task(
-                post_command_refresh(
-                    self.hass,
-                    self.device_manager,
-                    self.device.id,
-                    delay=self._post_command_delay,
-                )
-            )
-        
-        # ============================================================================
+        await self._async_send_dpcode_update(self._set_position, kwargs[ATTR_POSITION])
 
     def stop_cover(self, **kwargs: Any) -> None:
         """Stop the cover."""
@@ -535,27 +379,6 @@ class TuyaCoverEntity(TuyaEntity, CoverEntity):
                 }
             ]
         )
-        
-        # ============================================================================
-        # WORKAROUND: POST-COMMAND REFRESH
-        # ============================================================================
-        # Force a state refresh after sending command (recommended)
-        
-        if self._enable_post_command_refresh:
-            from .workarounds import post_command_refresh
-            # Use call_soon_threadsafe to schedule the task from sync context
-            self.hass.loop.call_soon_threadsafe(
-                lambda: self.hass.async_create_task(
-                    post_command_refresh(
-                        self.hass,
-                        self.device_manager,
-                        self.device.id,
-                        delay=self._post_command_delay,
-                    )
-                )
-            )
-        
-        # ============================================================================
 
     async def async_set_cover_tilt_position(self, **kwargs: Any) -> None:
         """Move the cover tilt to a specific position."""
