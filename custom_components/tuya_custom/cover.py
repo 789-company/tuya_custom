@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import datetime
 from typing import Any
 
 from tuya_sharing import CustomerDevice, Manager
@@ -24,6 +25,11 @@ from .const import TUYA_DISCOVERY_NEW, DeviceCategory, DPCode, DPType
 from .entity import TuyaEntity
 from .models import DPCodeIntegerWrapper, find_dpcode
 from .util import get_dpcode
+
+# TUYA_CUSTOM: Module-level cache for throttling update_device_cache calls
+# This prevents multiple cover entities from calling the expensive API update simultaneously
+_last_cache_update: dict[int, datetime] = {}
+_CACHE_UPDATE_THROTTLE = 25  # seconds (slightly less than HA's 30s default polling interval)
 
 
 class _DPCodePercentageMappingWrapper(DPCodeIntegerWrapper):
@@ -390,11 +396,29 @@ class TuyaCoverEntity(TuyaEntity, CoverEntity):
 
     async def async_update(self) -> None:
         """Update the entity.
-        
+
         TUYA_CUSTOM: Poll Tuya Cloud for device status updates.
         This is needed because Tuya Cloud does not send MQTT push updates for curtain motors.
         Without this, the state only updates when the integration is manually reloaded.
+
+        Throttling is implemented to prevent multiple entities from calling update_device_cache()
+        simultaneously. Since update_device_cache() updates ALL devices (not just this cover),
+        calling it 22+ times every 30 seconds would be wasteful. The throttle ensures we only
+        call it once per polling cycle, regardless of how many cover entities exist.
         """
+        # Use manager object ID as key to support multiple Tuya accounts
+        manager_id = id(self.device_manager)
+        now = datetime.now()
+
+        # Check if we recently updated the cache for this manager
+        if manager_id in _last_cache_update:
+            time_since_update = (now - _last_cache_update[manager_id]).total_seconds()
+            if time_since_update < _CACHE_UPDATE_THROTTLE:
+                # Cache was updated recently by another entity, skip this call
+                return
+
+        # Update the cache and record the timestamp
         await self.hass.async_add_executor_job(
-            self.device_manager.update_device_list_in_smart_home
+            self.device_manager.update_device_cache
         )
+        _last_cache_update[manager_id] = now

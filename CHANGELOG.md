@@ -2,6 +2,27 @@
 
 All notable changes to the Tuya Custom integration will be documented in this file.
 
+## [1.0.5] - 2025-11-18
+
+### Fixed
+- **CRITICAL PERFORMANCE FIX**: Implemented throttling for polling to prevent redundant API calls
+  - Previous implementation called `update_device_cache()` once per cover entity (22+ times every 30 seconds)
+  - Now throttled to only call once every 25 seconds regardless of entity count
+  - Reduces API load by ~95% (from 22 calls to 1 call per polling cycle)
+  - Uses module-level timestamp cache keyed by Manager ID to support multiple accounts
+
+### Changed
+- Added `datetime` import to [cover.py:6](custom_components/tuya_custom/cover.py:6)
+- Added module-level throttle variables `_last_cache_update` and `_CACHE_UPDATE_THROTTLE` ([cover.py:29-32](custom_components/tuya_custom/cover.py:29))
+- Enhanced `async_update()` method with time-based throttling logic ([cover.py:397-424](custom_components/tuya_custom/cover.py:397))
+- Fixed CHANGELOG documentation to use correct method name `update_device_cache()`
+
+### Technical Details
+- Throttle period: 25 seconds (slightly less than HA's 30s default `scan_interval`)
+- First entity to poll in each cycle triggers the API call; subsequent entities skip
+- Each Manager instance has its own throttle tracking (supports multi-account setups)
+- Method already uses correct `update_device_cache()` - no method name changes needed
+
 ## [1.0.4] - 2025-11-18
 
 ### Added
@@ -15,7 +36,7 @@ All notable changes to the Tuya Custom integration will be documented in this fi
 - Added `async_update()` method to fetch latest device status from Tuya Cloud ([`cover.py:389-399`](custom_components/tuya_custom/cover.py:389))
 
 ### Technical Details
-- Polling calls `device_manager.update_device_list_in_smart_home()` to refresh all device states
+- Polling calls `device_manager.update_device_cache()` to refresh all device states
 - Home Assistant default polling interval is 30 seconds (configurable via `scan_interval`)
 - This is a workaround for Tuya Cloud limitation (GitHub issue #156543)
 - Only cover entities poll; other entity types remain push-based via MQTT
