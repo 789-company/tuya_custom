@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.2] - 2025-01-17
+
+### Fixed
+- Fixed incorrect Manager method call in workarounds.py
+- Changed `manager.update_device_list_in_smart_home()` to `manager.update_device_cache()`
+- Resolved error: "'Manager' object has no attribute 'update_device_list_in_smart_home'"
+- Affects both `polling_fallback()` and `post_command_refresh()` functions
+
 ## [1.0.1] - 2025-01-17
 
 ### Fixed

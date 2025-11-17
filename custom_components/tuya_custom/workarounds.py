@@ -70,7 +70,7 @@ async def polling_fallback(
             # Fetch fresh device state from Tuya Cloud
             _LOGGER.debug("Polling device state for %s", device_id)
             await hass.async_add_executor_job(
-                manager.update_device_list_in_smart_home
+                manager.update_device_cache
             )
             
         except asyncio.CancelledError:
@@ -127,7 +127,7 @@ async def post_command_refresh(
         
         _LOGGER.debug("Executing post-command refresh for device %s", device_id)
         await hass.async_add_executor_job(
-            manager.update_device_list_in_smart_home
+            manager.update_device_cache
         )
         
     except Exception as err:
