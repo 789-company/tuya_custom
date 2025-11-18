@@ -21,7 +21,7 @@ from homeassistant.helpers.dispatcher import async_dispatcher_connect
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
 from . import TuyaConfigEntry
-from .const import TUYA_DISCOVERY_NEW, DeviceCategory, DPCode, DPType
+from .const import LOGGER, TUYA_DISCOVERY_NEW, DeviceCategory, DPCode, DPType
 from .entity import TuyaEntity
 from .models import DPCodeIntegerWrapper, find_dpcode
 from .util import get_dpcode
@@ -415,10 +415,20 @@ class TuyaCoverEntity(TuyaEntity, CoverEntity):
             time_since_update = (now - _last_cache_update[manager_id]).total_seconds()
             if time_since_update < _CACHE_UPDATE_THROTTLE:
                 # Cache was updated recently by another entity, skip this call
+                LOGGER.debug(
+                    "TUYA_CUSTOM: Skipping poll for %s (last update %.1fs ago)",
+                    self.entity_id,
+                    time_since_update,
+                )
                 return
 
         # Update the cache and record the timestamp
+        _last_cache_update[manager_id] = now
+        LOGGER.info(
+            "TUYA_CUSTOM: Polling Tuya Cloud for device updates (triggered by %s)",
+            self.entity_id,
+        )
         await self.hass.async_add_executor_job(
             self.device_manager.update_device_cache
         )
-        _last_cache_update[manager_id] = now
+        LOGGER.debug("TUYA_CUSTOM: Polling completed successfully")

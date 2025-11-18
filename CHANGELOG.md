@@ -2,6 +2,26 @@
 
 All notable changes to the Tuya Custom integration will be documented in this file.
 
+## [1.0.6] - 2025-11-18
+
+### Added
+- **Debug Logging**: Added detailed logging to verify polling activity
+  - INFO log when polling starts (shows which entity triggered it)
+  - DEBUG log when polling is skipped due to throttle (shows time since last update)
+  - DEBUG log when polling completes successfully
+  - Helps diagnose if polling is working correctly
+
+### Changed
+- Added `LOGGER` import to [cover.py:24](custom_components/tuya_custom/cover.py:24)
+- Enhanced `async_update()` with logging at [cover.py:418-434](custom_components/tuya_custom/cover.py:418)
+
+### How to Verify Polling Works
+After deploying this version, check logs (Settings → System → Logs) for:
+```
+INFO: TUYA_CUSTOM: Polling Tuya Cloud for device updates (triggered by cover.xxx)
+```
+You should see this message every ~30 seconds. If you don't see it, polling isn't active.
+
 ## [1.0.5] - 2025-11-18
 
 ### Fixed
