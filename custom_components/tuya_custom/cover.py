@@ -121,7 +121,8 @@ COVERS: dict[DeviceCategory, tuple[TuyaCoverEntityDescription, ...]] = {
             key=DPCode.CONTROL,
             translation_key="curtain",
             current_state=(DPCode.SITUATION_SET, DPCode.CONTROL),
-            current_position=(DPCode.PERCENT_CONTROL, DPCode.PERCENT_STATE),
+            # ใช้ percent_state เป็นตัวหลัก, percent_control เป็น fallback
+            current_position=(DPCode.PERCENT_STATE, DPCode.PERCENT_CONTROL),
             position_wrapper=_ControlBackModePercentageMappingWrapper,
             set_position=DPCode.PERCENT_CONTROL,
             device_class=CoverDeviceClass.CURTAIN,
@@ -130,7 +131,7 @@ COVERS: dict[DeviceCategory, tuple[TuyaCoverEntityDescription, ...]] = {
             key=DPCode.CONTROL_2,
             translation_key="indexed_curtain",
             translation_placeholders={"index": "2"},
-            current_position=(DPCode.PERCENT_CONTROL_2, DPCode.PERCENT_STATE_2),
+            current_position=(DPCode.PERCENT_STATE_2, DPCode.PERCENT_CONTROL_2),
             position_wrapper=_ControlBackModePercentageMappingWrapper,
             set_position=DPCode.PERCENT_CONTROL_2,
             device_class=CoverDeviceClass.CURTAIN,
@@ -139,7 +140,7 @@ COVERS: dict[DeviceCategory, tuple[TuyaCoverEntityDescription, ...]] = {
             key=DPCode.CONTROL_3,
             translation_key="indexed_curtain",
             translation_placeholders={"index": "3"},
-            current_position=(DPCode.PERCENT_CONTROL_3, DPCode.PERCENT_STATE_3),
+            current_position=(DPCode.PERCENT_STATE_3, DPCode.PERCENT_CONTROL_3),
             position_wrapper=_ControlBackModePercentageMappingWrapper,
             set_position=DPCode.PERCENT_CONTROL_3,
             device_class=CoverDeviceClass.CURTAIN,
@@ -269,7 +270,7 @@ class TuyaCoverEntity(TuyaEntity, CoverEntity):
         self._set_position = set_position
         self._tilt_position = tilt_position
 
-        # Optimistic position: last commanded position used when device doesn't push state
+        # Optimistic position: last commanded value, used when device does not push state updates
         self._optimistic_position: int | None = None
 
         # Check if this cover is based on a switch or has controls
@@ -297,17 +298,15 @@ class TuyaCoverEntity(TuyaEntity, CoverEntity):
 
     @property
     def current_cover_position(self) -> int | None:
-        """Return cover current position."""
-        # Try to read the real position from the device first
-        position = self._read_wrapper(self._current_position)
+        """Return cover current position.
 
-        # If the device reports a real position, use it and clear any optimistic value
-        if position is not None:
-            self._optimistic_position = None
-            return position
+        Prefer optimistic value (last command) if present,
+        otherwise fall back to the device-reported value.
+        """
+        if self._optimistic_position is not None:
+            return self._optimistic_position
 
-        # Fallback to the last commanded position if the device did not push an update
-        return self._optimistic_position
+        return self._read_wrapper(self._current_position)
 
     def _set_optimistic_position(self, position: int) -> None:
         """Remember last commanded position and refresh HA state."""
@@ -315,7 +314,6 @@ class TuyaCoverEntity(TuyaEntity, CoverEntity):
         self.schedule_update_ha_state()
 
     @property
-
     def current_cover_tilt_position(self) -> int | None:
         """Return current position of cover tilt.
 
