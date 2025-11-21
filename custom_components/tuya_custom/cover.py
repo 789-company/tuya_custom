@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import datetime
 from typing import Any
 
 from tuya_sharing import CustomerDevice, Manager
@@ -21,15 +20,10 @@ from homeassistant.helpers.dispatcher import async_dispatcher_connect
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
 from . import TuyaConfigEntry
-from .const import LOGGER, TUYA_DISCOVERY_NEW, DeviceCategory, DPCode, DPType
+from .const import TUYA_DISCOVERY_NEW, DeviceCategory, DPCode, DPType
 from .entity import TuyaEntity
 from .models import DPCodeIntegerWrapper, find_dpcode
 from .util import get_dpcode
-
-# TUYA_CUSTOM: Module-level cache for throttling update_device_cache calls
-# This prevents multiple cover entities from calling the expensive API update simultaneously
-_last_cache_update: dict[int, datetime] = {}
-_CACHE_UPDATE_THROTTLE = 25  # seconds (slightly less than HA's 30s default polling interval)
 
 
 class _DPCodePercentageMappingWrapper(DPCodeIntegerWrapper):
@@ -127,8 +121,8 @@ COVERS: dict[DeviceCategory, tuple[TuyaCoverEntityDescription, ...]] = {
             key=DPCode.CONTROL,
             translation_key="curtain",
             current_state=(DPCode.SITUATION_SET, DPCode.CONTROL),
-            # TUYA_CUSTOM FIX: Use only PERCENT_STATE (actual position) not PERCENT_CONTROL (command)
-            current_position=DPCode.PERCENT_STATE,
+            current_position=(DPCode.PERCENT_CONTROL, DPCode.PERCENT_STATE),
+            position_wrapper=_ControlBackModePercentageMappingWrapper,
             set_position=DPCode.PERCENT_CONTROL,
             device_class=CoverDeviceClass.CURTAIN,
         ),
@@ -136,7 +130,8 @@ COVERS: dict[DeviceCategory, tuple[TuyaCoverEntityDescription, ...]] = {
             key=DPCode.CONTROL_2,
             translation_key="indexed_curtain",
             translation_placeholders={"index": "2"},
-            current_position=DPCode.PERCENT_STATE_2,
+            current_position=(DPCode.PERCENT_CONTROL_2, DPCode.PERCENT_STATE_2),
+            position_wrapper=_ControlBackModePercentageMappingWrapper,
             set_position=DPCode.PERCENT_CONTROL_2,
             device_class=CoverDeviceClass.CURTAIN,
         ),
@@ -144,7 +139,8 @@ COVERS: dict[DeviceCategory, tuple[TuyaCoverEntityDescription, ...]] = {
             key=DPCode.CONTROL_3,
             translation_key="indexed_curtain",
             translation_placeholders={"index": "3"},
-            current_position=DPCode.PERCENT_STATE_3,
+            current_position=(DPCode.PERCENT_CONTROL_3, DPCode.PERCENT_STATE_3),
+            position_wrapper=_ControlBackModePercentageMappingWrapper,
             set_position=DPCode.PERCENT_CONTROL_3,
             device_class=CoverDeviceClass.CURTAIN,
         ),
@@ -163,8 +159,7 @@ COVERS: dict[DeviceCategory, tuple[TuyaCoverEntityDescription, ...]] = {
         TuyaCoverEntityDescription(
             key=DPCode.SWITCH_1,
             translation_key="blind",
-            # TUYA_CUSTOM FIX: Use PERCENT_STATE for actual position
-            current_position=DPCode.PERCENT_STATE,
+            current_position=DPCode.PERCENT_CONTROL,
             set_position=DPCode.PERCENT_CONTROL,
             device_class=CoverDeviceClass.BLIND,
         ),
@@ -173,8 +168,7 @@ COVERS: dict[DeviceCategory, tuple[TuyaCoverEntityDescription, ...]] = {
         TuyaCoverEntityDescription(
             key=DPCode.CONTROL,
             translation_key="curtain",
-            # TUYA_CUSTOM FIX: Use PERCENT_STATE for actual position
-            current_position=DPCode.PERCENT_STATE,
+            current_position=DPCode.PERCENT_CONTROL,
             position_wrapper=_ControlBackModePercentageMappingWrapper,
             set_position=DPCode.PERCENT_CONTROL,
             device_class=CoverDeviceClass.CURTAIN,
@@ -183,8 +177,7 @@ COVERS: dict[DeviceCategory, tuple[TuyaCoverEntityDescription, ...]] = {
             key=DPCode.CONTROL_2,
             translation_key="indexed_curtain",
             translation_placeholders={"index": "2"},
-            # TUYA_CUSTOM FIX: Use PERCENT_STATE_2 for actual position
-            current_position=DPCode.PERCENT_STATE_2,
+            current_position=DPCode.PERCENT_CONTROL_2,
             position_wrapper=_ControlBackModePercentageMappingWrapper,
             set_position=DPCode.PERCENT_CONTROL_2,
             device_class=CoverDeviceClass.CURTAIN,
@@ -253,8 +246,6 @@ async def async_setup_entry(
 class TuyaCoverEntity(TuyaEntity, CoverEntity):
     """Tuya Cover Device."""
 
-    # TUYA_CUSTOM: Enable polling to work around Tuya Cloud not sending MQTT updates
-    _attr_should_poll = True
     _current_state: DPCode | None = None
     entity_description: TuyaCoverEntityDescription
 
@@ -393,42 +384,3 @@ class TuyaCoverEntity(TuyaEntity, CoverEntity):
         await self._async_send_dpcode_update(
             self._tilt_position, kwargs[ATTR_TILT_POSITION]
         )
-
-    async def async_update(self) -> None:
-        """Update the entity.
-
-        TUYA_CUSTOM: Poll Tuya Cloud for device status updates.
-        This is needed because Tuya Cloud does not send MQTT push updates for curtain motors.
-        Without this, the state only updates when the integration is manually reloaded.
-
-        Throttling is implemented to prevent multiple entities from calling update_device_cache()
-        simultaneously. Since update_device_cache() updates ALL devices (not just this cover),
-        calling it 22+ times every 30 seconds would be wasteful. The throttle ensures we only
-        call it once per polling cycle, regardless of how many cover entities exist.
-        """
-        # Use manager object ID as key to support multiple Tuya accounts
-        manager_id = id(self.device_manager)
-        now = datetime.now()
-
-        # Check if we recently updated the cache for this manager
-        if manager_id in _last_cache_update:
-            time_since_update = (now - _last_cache_update[manager_id]).total_seconds()
-            if time_since_update < _CACHE_UPDATE_THROTTLE:
-                # Cache was updated recently by another entity, skip this call
-                LOGGER.debug(
-                    "TUYA_CUSTOM: Skipping poll for %s (last update %.1fs ago)",
-                    self.entity_id,
-                    time_since_update,
-                )
-                return
-
-        # Update the cache and record the timestamp
-        _last_cache_update[manager_id] = now
-        LOGGER.info(
-            "TUYA_CUSTOM: Polling Tuya Cloud for device updates (triggered by %s)",
-            self.entity_id,
-        )
-        await self.hass.async_add_executor_job(
-            self.device_manager.update_device_cache
-        )
-        LOGGER.debug("TUYA_CUSTOM: Polling completed successfully")
