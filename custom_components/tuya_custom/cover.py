@@ -73,6 +73,15 @@ class _ControlBackModePercentageMappingWrapper(_DPCodePercentageMappingWrapper):
         return device.status.get(DPCode.CONTROL_BACK_MODE) != "back"
 
 
+class _ReversedBackModePercentageMappingWrapper(_DPCodePercentageMappingWrapper):
+    """Wrapper for DPCode position values with control_back_mode support."""
+
+    def _position_reversed(self, device: CustomerDevice) -> bool:
+        """Check if the position and direction should be reversed."""
+        return device.status.get(DPCode.CONTROL_BACK_MODE) == "back"
+
+
+
 @dataclass(frozen=True)
 class TuyaCoverEntityDescription(CoverEntityDescription):
     """Describe an Tuya cover entity."""
@@ -84,7 +93,9 @@ class TuyaCoverEntityDescription(CoverEntityDescription):
         _InvertedPercentageMappingWrapper
     )
     set_position: DPCode | None = None
+    set_position_wrapper: type[_DPCodePercentageMappingWrapper] | None = None
     open_instruction_value: str = "open"
+
     close_instruction_value: str = "close"
     stop_instruction_value: str = "stop"
 
@@ -123,8 +134,9 @@ COVERS: dict[DeviceCategory, tuple[TuyaCoverEntityDescription, ...]] = {
             current_state=(DPCode.SITUATION_SET, DPCode.CONTROL),
             # ใช้ percent_state เป็นตัวหลัก, percent_control เป็น fallback
             current_position=(DPCode.PERCENT_STATE, DPCode.PERCENT_CONTROL),
-            position_wrapper=_ControlBackModePercentageMappingWrapper,
+            position_wrapper=_ReversedBackModePercentageMappingWrapper,
             set_position=DPCode.PERCENT_CONTROL,
+            set_position_wrapper=_DPCodePercentageMappingWrapper,
             device_class=CoverDeviceClass.CURTAIN,
         ),
         TuyaCoverEntityDescription(
@@ -132,8 +144,9 @@ COVERS: dict[DeviceCategory, tuple[TuyaCoverEntityDescription, ...]] = {
             translation_key="indexed_curtain",
             translation_placeholders={"index": "2"},
             current_position=(DPCode.PERCENT_STATE_2, DPCode.PERCENT_CONTROL_2),
-            position_wrapper=_ControlBackModePercentageMappingWrapper,
+            position_wrapper=_ReversedBackModePercentageMappingWrapper,
             set_position=DPCode.PERCENT_CONTROL_2,
+            set_position_wrapper=_DPCodePercentageMappingWrapper,
             device_class=CoverDeviceClass.CURTAIN,
         ),
         TuyaCoverEntityDescription(
@@ -141,8 +154,9 @@ COVERS: dict[DeviceCategory, tuple[TuyaCoverEntityDescription, ...]] = {
             translation_key="indexed_curtain",
             translation_placeholders={"index": "3"},
             current_position=(DPCode.PERCENT_STATE_3, DPCode.PERCENT_CONTROL_3),
-            position_wrapper=_ControlBackModePercentageMappingWrapper,
+            position_wrapper=_ReversedBackModePercentageMappingWrapper,
             set_position=DPCode.PERCENT_CONTROL_3,
+            set_position_wrapper=_DPCodePercentageMappingWrapper,
             device_class=CoverDeviceClass.CURTAIN,
         ),
         TuyaCoverEntityDescription(
@@ -219,7 +233,9 @@ async def async_setup_entry(
                         current_position=description.position_wrapper.find_dpcode(
                             device, description.current_position
                         ),
-                        set_position=description.position_wrapper.find_dpcode(
+                        set_position=(
+                            description.set_position_wrapper or description.position_wrapper
+                        ).find_dpcode(
                             device, description.set_position, prefer_function=True
                         ),
                         tilt_position=description.position_wrapper.find_dpcode(
