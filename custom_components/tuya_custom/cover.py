@@ -269,6 +269,9 @@ class TuyaCoverEntity(TuyaEntity, CoverEntity):
         self._set_position = set_position
         self._tilt_position = tilt_position
 
+        # Optimistic position: last commanded position used when device doesn't push state
+        self._optimistic_position: int | None = None
+
         # Check if this cover is based on a switch or has controls
         if get_dpcode(self.device, description.key):
             if device.function[description.key].type == "Boolean":
@@ -295,9 +298,24 @@ class TuyaCoverEntity(TuyaEntity, CoverEntity):
     @property
     def current_cover_position(self) -> int | None:
         """Return cover current position."""
-        return self._read_wrapper(self._current_position)
+        # Try to read the real position from the device first
+        position = self._read_wrapper(self._current_position)
+
+        # If the device reports a real position, use it and clear any optimistic value
+        if position is not None:
+            self._optimistic_position = None
+            return position
+
+        # Fallback to the last commanded position if the device did not push an update
+        return self._optimistic_position
+
+    def _set_optimistic_position(self, position: int) -> None:
+        """Remember last commanded position and refresh HA state."""
+        self._optimistic_position = position
+        self.schedule_update_ha_state()
 
     @property
+
     def current_cover_tilt_position(self) -> int | None:
         """Return current position of cover tilt.
 
@@ -342,6 +360,9 @@ class TuyaCoverEntity(TuyaEntity, CoverEntity):
         if self._set_position is not None:
             commands.append(self._set_position.get_update_command(self.device, 100))
 
+        # Optimistically assume the cover is now fully open
+        self._set_optimistic_position(100)
+
         self._send_command(commands)
 
     def close_cover(self, **kwargs: Any) -> None:
@@ -362,11 +383,18 @@ class TuyaCoverEntity(TuyaEntity, CoverEntity):
         if self._set_position is not None:
             commands.append(self._set_position.get_update_command(self.device, 0))
 
+        # Optimistically assume the cover is now fully closed
+        self._set_optimistic_position(0)
+
         self._send_command(commands)
 
     async def async_set_cover_position(self, **kwargs: Any) -> None:
         """Move the cover to a specific position."""
-        await self._async_send_dpcode_update(self._set_position, kwargs[ATTR_POSITION])
+        position = kwargs[ATTR_POSITION]
+        await self._async_send_dpcode_update(self._set_position, position)
+
+        # Optimistically assume the cover has moved to the requested position
+        self._set_optimistic_position(position)
 
     def stop_cover(self, **kwargs: Any) -> None:
         """Stop the cover."""
